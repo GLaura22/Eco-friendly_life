@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eco_friendly_life_winform.Backend
+namespace eco_friendly_life_winform.Database_Backend.Tables
 {
     internal class Tipp
     {
         public int TippID { get; set; }
-        public string TippName { get; set;}
+        public string TippName { get; set; }
     }
 }
