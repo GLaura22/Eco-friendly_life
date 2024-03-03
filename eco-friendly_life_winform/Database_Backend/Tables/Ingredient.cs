@@ -14,5 +14,7 @@ namespace eco_friendly_life_winform.Database_Backend.Tables
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IngredientID { get; set; }
         public string IngredientName { get; set; }
+
+        public double CarbonFootprint { get; set; }
     }
 }

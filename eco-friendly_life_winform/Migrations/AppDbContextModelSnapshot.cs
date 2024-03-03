@@ -85,6 +85,9 @@ namespace eco_friendly_life_winform.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientID"));
 
+                    b.Property<double>("CarbonFootprint")
+                        .HasColumnType("float");
+
                     b.Property<string>("IngredientName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
