@@ -40,14 +40,73 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             }
         }
 
+        public RecipeAPI.Rootobject getRecipeByNameCall(string recipeName)
+        {
+            RecipeAPI.Rootobject resultRecipe;
+
+            string str = "s=" + recipeName;
+
+            var request = new RestRequest(str);
+            var response = client.Execute(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string rawResponse = response.Content;
+
+                resultRecipe = JsonConvert.DeserializeObject<RecipeAPI.Rootobject>(rawResponse);
+
+                if (resultRecipe != null)
+                {
+                    return resultRecipe;
+                }
+                else
+                {
+                    throw new Exception("Don't have any data");
+                }
+            }
+            else
+            {
+                throw new Exception("Can't reach API");
+            }
+        }
+
+        public RecipeAPI.Rootobject getRecipeById(string id)
+        {
+            string restRequest = "lookup.php?i=" + id;
+            var request = new RestRequest(restRequest);
+            var response = client.Execute(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string rawResponse = response.Content;
+
+                result = JsonConvert.DeserializeObject<RecipeAPI.Rootobject>(rawResponse);
+
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    throw new Exception("Don't have any data");
+                }
+            }
+            else
+            {
+                throw new Exception("Can't reach API");
+            }
+
+        }
+
 
         // meals with no meat (vegan + vegetarian)
-        public List<RecipeAPI.Meal> vegetarianRecipeCall()
+        public List<RecipeAPI.Rootobject> vegetarianRecipeCall()
         {
             List<RecipeAPI.Meal> resultList = new List<RecipeAPI.Meal>();
 
             RecipeAPI.Rootobject vegaResult;
             RecipeAPI.Rootobject veganResult;
+            List<RecipeAPI.Rootobject> wholeDishData = new List<RecipeAPI.Rootobject>();
 
             // vegetarian meals data call
 
@@ -60,6 +119,11 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             var request2 = new RestRequest("filter.php?c=Vegan");
             var response2 = client.Execute(request2);
             List<RecipeAPI.Meal> veganMeals = new List<RecipeAPI.Meal>();
+
+            // these API Calls dont return the whole meal only 3 properties
+            //"strMeal": "Baingan Bharta",
+            //"strMealThumb": "https://www.themealdb.com/images/media/meals/urtpqw1487341253.jpg",
+            //"idMeal": "52807"
 
             if (response1.StatusCode == System.Net.HttpStatusCode.OK
                 && response2.StatusCode == System.Net.HttpStatusCode.OK)
@@ -82,7 +146,16 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                         resultList.Add(obj);
                     }
 
-                    return resultList;
+                    foreach (var dish in resultList)
+                    {
+
+                        // converting the short recipes to full ones
+                        RecipeAPI.Rootobject meal = getRecipeById(dish.idMeal);
+                        wholeDishData.Add(meal);
+                    }
+
+                    return wholeDishData;
+
                 }
                 else
                 {

@@ -19,6 +19,7 @@ namespace eco_friendly_life_winform
             mainWindowPanel.Visible = true;
             RecipePanel.Visible = false;
             TippPanel.Visible = false;
+            resultPanel.Visible = false;
         }
 
 
@@ -27,6 +28,7 @@ namespace eco_friendly_life_winform
             mainWindowPanel.Visible = false;
             TippPanel.Visible = false;
             RecipePanel.Visible = true;
+            resultPanel.Visible = false;
             ingredientComboBox1.Items.Clear();
 
             IngredientController ingredientController = new();
@@ -95,8 +97,8 @@ namespace eco_friendly_life_winform
 
             string tipus = string.Empty;
 
-            //List<Recipe> result_list = new List<Recipe>();
-            List<RecipeAPI.Meal> noMeatListResult = new List<RecipeAPI.Meal>();
+            //List<RecipeAPI.Meal> result_list = new List<RecipeAPI.Meal>();
+            List<RecipeAPI.Rootobject> noMeatListResult = new List<RecipeAPI.Rootobject>();
 
             // there is no preffered ingredient
 
@@ -110,58 +112,41 @@ namespace eco_friendly_life_winform
                     APICalls apiCall = new APICalls();
 
                     noMeatListResult = apiCall.vegetarianRecipeCall();
+                    //result_list = apiCall.vegetarianRecipeCall();
                     string asd = "";
 
-                    foreach(var dish in noMeatListResult)
-                    {
-                        asd += dish.strMeal + ", ";
-                    }
+                    // dishes are a Rootobjects
+                    //foreach(var dish in noMeatListResult)
+                    //{
+                    //    foreach (var item in dish.meals)
+                    //    {
+                    //        //asd += item.strMeal + ", ";
+                    //        asd += item.strIngredient1 + ", ";
+                    //    }
+                    //}
 
-                    MessageBox.Show(asd);
+                    asd += noMeatListResult[1].meals[0].strMeal;
 
+                    // saving the result to public variable 
+                    result = noMeatListResult[1];
+
+                    resultPanel.Visible = true;
+                    resultRecipeLabel.Text = asd;
+
+                    loadInImage(result.meals[0].strMealThumb, resultPictureBox);
+
+
+                    //RecipeAPI.Rootobject proba = new RecipeAPI.Rootobject();
+                    ////proba = apiCall.getRecipeById("52807");
+                    //proba = apiCall.getRecipeById("52807");
+
+                    //foreach (var obj in proba.meals)
+                    //{
+                    //    MessageBox.Show(obj.strMeal);
+                    //}
                 }
 
             }
-
-
-            /*
-            List<Recipe> filtered = new List<Recipe>();
-
-            if ("" != wantedIngredient1 || "" != wantedIngredient2 || "" != wantedIngredient3)
-            {
-                foreach (Recipe dish in result_list)
-                {
-                    foreach (string hozzavalo in dish.)
-                    {
-                        if (hozzavalo == wantedIngredient1 || hozzavalo == wantedIngredient2 || hozzavalo == wantedIngredient3)
-                        {
-                            filtered.Add(dish);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                filtered = result_list;
-            }
-
-            if (filtered.Count != 0)
-            {
-                Random rnd = new Random();
-                int num = rnd.Next(0, filtered.Count());
-                wanted = filtered[num];
-
-                MessageBox.Show(wanted.DishName);
-
-                string ingredients_list = "";
-                foreach (string i in wanted.Ingredients)
-                {
-                   ingredients_list += i + "\n";
-                }
-                MessageBox.Show(ingredients_list);
-                MessageBox.Show(wanted.RecipeDescription);
-            }
-            */
 
         }
 
@@ -194,6 +179,8 @@ namespace eco_friendly_life_winform
             //    }
             //}
 
+            // rando recipe for testing
+
             APICalls apiCall = new APICalls();
 
             result = apiCall.randomRecipeCall();
@@ -201,35 +188,42 @@ namespace eco_friendly_life_winform
 
             foreach (var obj in result.meals)
             {
-                todaysTippTextBox.Text = obj.strMeal;
+                //todaysTippTextBox.Text = obj.strMeal;
                 string imageURL = obj.strMealThumb;
 
-                // Download the image from the URL
-                using (WebClient webClient = new WebClient())
-                {
-                    try
-                    {
-                        byte[] imageData = webClient.DownloadData(imageURL);
-
-                        // Convert the downloaded byte array to an Image object
-                        using (var ms = new System.IO.MemoryStream(imageData))
-                        {
-                            Image image = Image.FromStream(ms);
-
-                            // Assign the image to the PictureBox control
-                            dishPictureBox.Image = image;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error downloading image: " + ex.Message);
-                    }
-                }
+                loadInImage(imageURL, dishPictureBox);
             }
             
-            
+        }
 
+        private void recipeButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(result.meals[0].strInstructions);
+        }
 
+        private void loadInImage(string imageUrl, PictureBox pictureBox)
+        {
+            // Download the image from the URL
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    byte[] imageData = webClient.DownloadData(imageUrl);
+
+                    // Convert the downloaded byte array to an Image object
+                    using (var ms = new System.IO.MemoryStream(imageData))
+                    {
+                        Image image = Image.FromStream(ms);
+
+                        // Assign the image to the PictureBox control
+                        pictureBox.Image = image;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error downloading image: " + ex.Message);
+                }
+            }
         }
     }
 }

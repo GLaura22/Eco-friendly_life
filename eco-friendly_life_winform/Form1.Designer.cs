@@ -37,11 +37,13 @@
             this.tippsAndTricksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainWindowPanel = new System.Windows.Forms.Panel();
             this.RecipePanel = new System.Windows.Forms.Panel();
+            this.resultPanel = new System.Windows.Forms.Panel();
+            this.resultRecipeLabel = new System.Windows.Forms.Label();
             this.recipeButton = new System.Windows.Forms.Button();
+            this.resultPictureBox = new System.Windows.Forms.PictureBox();
             this.noMeatRadioButton = new System.Windows.Forms.RadioButton();
             this.meatRadioButton = new System.Windows.Forms.RadioButton();
             this.questionLabel = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.ingLabel5 = new System.Windows.Forms.Label();
             this.ingLabel4 = new System.Windows.Forms.Label();
             this.ingLabel3 = new System.Windows.Forms.Label();
@@ -64,7 +66,8 @@
             this.menuStrip1.SuspendLayout();
             this.mainWindowPanel.SuspendLayout();
             this.RecipePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.resultPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.TippPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dishPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -136,11 +139,10 @@
             // 
             // RecipePanel
             // 
-            this.RecipePanel.Controls.Add(this.recipeButton);
+            this.RecipePanel.Controls.Add(this.resultPanel);
             this.RecipePanel.Controls.Add(this.noMeatRadioButton);
             this.RecipePanel.Controls.Add(this.meatRadioButton);
             this.RecipePanel.Controls.Add(this.questionLabel);
-            this.RecipePanel.Controls.Add(this.pictureBox2);
             this.RecipePanel.Controls.Add(this.ingLabel5);
             this.RecipePanel.Controls.Add(this.ingLabel4);
             this.RecipePanel.Controls.Add(this.ingLabel3);
@@ -159,17 +161,46 @@
             this.RecipePanel.Size = new System.Drawing.Size(740, 543);
             this.RecipePanel.TabIndex = 5;
             // 
+            // resultPanel
+            // 
+            this.resultPanel.Controls.Add(this.resultRecipeLabel);
+            this.resultPanel.Controls.Add(this.recipeButton);
+            this.resultPanel.Controls.Add(this.resultPictureBox);
+            this.resultPanel.Location = new System.Drawing.Point(342, 91);
+            this.resultPanel.Name = "resultPanel";
+            this.resultPanel.Size = new System.Drawing.Size(362, 340);
+            this.resultPanel.TabIndex = 23;
+            // 
+            // resultRecipeLabel
+            // 
+            this.resultRecipeLabel.AutoSize = true;
+            this.resultRecipeLabel.Location = new System.Drawing.Point(63, 231);
+            this.resultRecipeLabel.Name = "resultRecipeLabel";
+            this.resultRecipeLabel.Size = new System.Drawing.Size(0, 15);
+            this.resultRecipeLabel.TabIndex = 23;
+            // 
             // recipeButton
             // 
             this.recipeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
             this.recipeButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.recipeButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.recipeButton.Location = new System.Drawing.Point(445, 364);
+            this.recipeButton.Location = new System.Drawing.Point(103, 273);
             this.recipeButton.Name = "recipeButton";
             this.recipeButton.Size = new System.Drawing.Size(153, 46);
             this.recipeButton.TabIndex = 22;
             this.recipeButton.Text = "Recipe";
             this.recipeButton.UseVisualStyleBackColor = false;
+            this.recipeButton.Click += new System.EventHandler(this.recipeButton_Click);
+            // 
+            // resultPictureBox
+            // 
+            this.resultPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("resultPictureBox.Image")));
+            this.resultPictureBox.Location = new System.Drawing.Point(40, 19);
+            this.resultPictureBox.Name = "resultPictureBox";
+            this.resultPictureBox.Size = new System.Drawing.Size(292, 196);
+            this.resultPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.resultPictureBox.TabIndex = 18;
+            this.resultPictureBox.TabStop = false;
             // 
             // noMeatRadioButton
             // 
@@ -201,16 +232,6 @@
             this.questionLabel.Size = new System.Drawing.Size(189, 15);
             this.questionLabel.TabIndex = 19;
             this.questionLabel.Text = "Should the dish contain any meat?";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(382, 128);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(292, 196);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 18;
-            this.pictureBox2.TabStop = false;
             // 
             // ingLabel5
             // 
@@ -409,7 +430,9 @@
             this.mainWindowPanel.PerformLayout();
             this.RecipePanel.ResumeLayout(false);
             this.RecipePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.resultPanel.ResumeLayout(false);
+            this.resultPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).EndInit();
             this.TippPanel.ResumeLayout(false);
             this.TippPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dishPictureBox)).EndInit();
@@ -445,11 +468,13 @@
         private RadioButton noMeatRadioButton;
         private RadioButton meatRadioButton;
         private Label questionLabel;
-        private PictureBox pictureBox2;
+        private PictureBox resultPictureBox;
         private Label ingLabel5;
         private Label ingLabel4;
         private Label ingLabel3;
         private Label ingLabel2;
         private Label ingLabel1;
+        private Panel resultPanel;
+        private Label resultRecipeLabel;
     }
 }
