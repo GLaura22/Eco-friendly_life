@@ -5,6 +5,7 @@ using Newtonsoft;
 using System.Net.Http.Json;
 using Newtonsoft.Json;
 using System.Net;
+using eco_friendly_life_winform.Database_Backend.Calculator;
 
 namespace eco_friendly_life_winform
 {
@@ -97,9 +98,6 @@ namespace eco_friendly_life_winform
 
             string tipus = string.Empty;
 
-            //List<RecipeAPI.Meal> result_list = new List<RecipeAPI.Meal>();
-            List<RecipeAPI.Rootobject> noMeatListResult = new List<RecipeAPI.Rootobject>();
-
             // there is no preffered ingredient
 
             if ("" == wantedIngredient1 && "" == wantedIngredient2 && "" == wantedIngredient3 &&
@@ -109,45 +107,76 @@ namespace eco_friendly_life_winform
                 // only vegetarian dishes
                 if(noMeatRadioButton.Checked) 
                 {
-                    APICalls apiCall = new APICalls();
-
-                    noMeatListResult = apiCall.vegetarianRecipeCall();
-                    //result_list = apiCall.vegetarianRecipeCall();
-                    string asd = "";
-
-                    // dishes are a Rootobjects
-                    //foreach(var dish in noMeatListResult)
-                    //{
-                    //    foreach (var item in dish.meals)
-                    //    {
-                    //        //asd += item.strMeal + ", ";
-                    //        asd += item.strIngredient1 + ", ";
-                    //    }
-                    //}
-
-                    asd += noMeatListResult[1].meals[0].strMeal;
-
-                    // saving the result to public variable 
-                    result = noMeatListResult[1];
-
-                    resultPanel.Visible = true;
-                    resultRecipeLabel.Text = asd;
-
-                    loadInImage(result.meals[0].strMealThumb, resultPictureBox);
-
-
-                    //RecipeAPI.Rootobject proba = new RecipeAPI.Rootobject();
-                    ////proba = apiCall.getRecipeById("52807");
-                    //proba = apiCall.getRecipeById("52807");
-
-                    //foreach (var obj in proba.meals)
-                    //{
-                    //    MessageBox.Show(obj.strMeal);
-                    //}
+                    noMeatAllIngredients();
+                }
+                //meaty dishes
+                else if (meatRadioButton.Checked)
+                {
+                    meatAllIngredients();
                 }
 
             }
 
+        }
+
+        private void meatAllIngredients()
+        { 
+            
+        }
+
+        private void noMeatAllIngredients()
+        {
+            //List<RecipeAPI.Meal> result_list = new List<RecipeAPI.Meal>();
+            List<RecipeAPI.Rootobject> noMeatListResult = new List<RecipeAPI.Rootobject>();
+
+            APICalls apiCall = new APICalls();
+            CarbonFootprintCalculator crbFtprnt = new CarbonFootprintCalculator();
+
+            noMeatListResult = apiCall.vegetarianRecipeCall();
+
+            Dictionary<RecipeAPI.Rootobject, double> mealsWithCarbonfootprint = new Dictionary<RecipeAPI.Rootobject, double>();
+
+            // getting the carbon footprint of every meal that does not contain meat
+            foreach (var obj in noMeatListResult)
+            {
+                KeyValuePair<RecipeAPI.Rootobject, double> mealwithFootprint = crbFtprnt.getCarbonFootprint(obj);
+                mealsWithCarbonfootprint.Add(mealwithFootprint.Key, mealwithFootprint.Value);
+            }
+
+
+            // sorting the list in decreasing order by the value of the carbon footprints
+            mealsWithCarbonfootprint = mealsWithCarbonfootprint.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            // -------------------------------------------------------- debug
+
+            //debug = "";
+
+            //foreach (var kvp in mealsWithCarbonfootprint)
+            //{
+            //    foreach (var item in kvp.Key.meals)
+            //    {
+            //        debug += item.strMeal + " " + kvp.Value.ToString() + ", ";
+            //    }
+            //}
+
+            //MessageBox.Show(debug);
+
+            // --------------------------------------------------------
+
+            // saving the result to public variable 
+            result = mealsWithCarbonfootprint.First().Key;
+
+            string vegetarianResultName = "";
+            vegetarianResultName = result.meals[0].strMeal;
+            //vegetarianResult += noMeatListResult[1].meals[0].strMeal;
+
+
+            resultPanel.Visible = true;
+            resultRecipeLabel.Text = vegetarianResultName;
+            //MessageBox.Show("lefutott");
+
+            // loading in actual meals image
+            loadInImage(result.meals[0].strMealThumb, resultPictureBox);
         }
 
         private void apiReadButton_Click(object sender, EventArgs e)

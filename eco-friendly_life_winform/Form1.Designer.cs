@@ -197,7 +197,7 @@
             this.resultPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("resultPictureBox.Image")));
             this.resultPictureBox.Location = new System.Drawing.Point(40, 19);
             this.resultPictureBox.Name = "resultPictureBox";
-            this.resultPictureBox.Size = new System.Drawing.Size(292, 196);
+            this.resultPictureBox.Size = new System.Drawing.Size(292, 209);
             this.resultPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.resultPictureBox.TabIndex = 18;
             this.resultPictureBox.TabStop = false;

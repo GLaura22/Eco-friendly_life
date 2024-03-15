@@ -18,5 +18,22 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 return ingredients;
             }
         }
+
+        internal int GetCount() 
+        {
+            using (var context = new AppDbContext())
+            {
+                return context.Ingredients.ToList().Count();
+            }
+        }
+
+        internal Ingredient getElementByIndex(int index) 
+        {
+            using (var context = new AppDbContext())
+            {
+                var ingredients = context.Ingredients.ToList();
+                return ingredients[index];
+            }
+        }
     }
 }
