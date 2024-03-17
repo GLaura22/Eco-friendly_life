@@ -53,16 +53,6 @@ namespace eco_friendly_life_winform
             {
                 ingredientComboBox3.Items.Add(ingredients[i].IngredientName.ToString());
             }
-            // dairy 5
-            for (int i = 39; i < 43; i++)
-            {
-                ingredientComboBox4.Items.Add(ingredients[i].IngredientName.ToString());
-            }
-            // other 12
-            for (int i = 43; i < 55; i++)
-            {
-                ingredientComboBox5.Items.Add(ingredients[i].IngredientName.ToString());
-            }
 
         }
 
@@ -89,21 +79,17 @@ namespace eco_friendly_life_winform
             string wantedIngredient1 = string.Empty;
             string wantedIngredient2 = string.Empty;
             string wantedIngredient3 = string.Empty;
-            string wantedIngredient4 = string.Empty;
-            string wantedIngredient5 = string.Empty;
 
             wantedIngredient1 = ingredientComboBox1.Text;
             wantedIngredient2 = ingredientComboBox2.Text;
             wantedIngredient3 = ingredientComboBox3.Text;
-            wantedIngredient4 = ingredientComboBox3.Text;
-            wantedIngredient5 = ingredientComboBox3.Text;
+
 
             string tipus = string.Empty;
 
             // there is no preffered ingredient
 
-            if ("" == wantedIngredient1 && "" == wantedIngredient2 && "" == wantedIngredient3 &&
-                 "" == wantedIngredient4 && "" == wantedIngredient5)
+            if ("" == wantedIngredient1 && "" == wantedIngredient2 && "" == wantedIngredient3)
             {
 
                 // only vegetarian dishes

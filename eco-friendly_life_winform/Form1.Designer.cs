@@ -41,13 +41,9 @@
             this.noMeatRadioButton = new System.Windows.Forms.RadioButton();
             this.meatRadioButton = new System.Windows.Forms.RadioButton();
             this.questionLabel = new System.Windows.Forms.Label();
-            this.ingLabel5 = new System.Windows.Forms.Label();
-            this.ingLabel4 = new System.Windows.Forms.Label();
             this.ingLabel3 = new System.Windows.Forms.Label();
             this.ingLabel2 = new System.Windows.Forms.Label();
             this.ingLabel1 = new System.Windows.Forms.Label();
-            this.ingredientComboBox5 = new System.Windows.Forms.ComboBox();
-            this.ingredientComboBox4 = new System.Windows.Forms.ComboBox();
             this.generalasButton = new System.Windows.Forms.Button();
             this.ingredientComboBox3 = new System.Windows.Forms.ComboBox();
             this.ingredientComboBox2 = new System.Windows.Forms.ComboBox();
@@ -145,13 +141,9 @@
             this.RecipePanel.Controls.Add(this.noMeatRadioButton);
             this.RecipePanel.Controls.Add(this.meatRadioButton);
             this.RecipePanel.Controls.Add(this.questionLabel);
-            this.RecipePanel.Controls.Add(this.ingLabel5);
-            this.RecipePanel.Controls.Add(this.ingLabel4);
             this.RecipePanel.Controls.Add(this.ingLabel3);
             this.RecipePanel.Controls.Add(this.ingLabel2);
             this.RecipePanel.Controls.Add(this.ingLabel1);
-            this.RecipePanel.Controls.Add(this.ingredientComboBox5);
-            this.RecipePanel.Controls.Add(this.ingredientComboBox4);
             this.RecipePanel.Controls.Add(this.generalasButton);
             this.RecipePanel.Controls.Add(this.ingredientComboBox3);
             this.RecipePanel.Controls.Add(this.ingredientComboBox2);
@@ -204,71 +196,32 @@
             this.questionLabel.TabIndex = 19;
             this.questionLabel.Text = "should the dish contain any meat?";
             // 
-            // ingLabel5
-            // 
-            this.ingLabel5.AutoSize = true;
-            this.ingLabel5.Location = new System.Drawing.Point(23, 381);
-            this.ingLabel5.Name = "ingLabel5";
-            this.ingLabel5.Size = new System.Drawing.Size(40, 15);
-            this.ingLabel5.TabIndex = 17;
-            this.ingLabel5.Text = "Other:";
-            // 
-            // ingLabel4
-            // 
-            this.ingLabel4.AutoSize = true;
-            this.ingLabel4.Location = new System.Drawing.Point(23, 318);
-            this.ingLabel4.Name = "ingLabel4";
-            this.ingLabel4.Size = new System.Drawing.Size(37, 15);
-            this.ingLabel4.TabIndex = 16;
-            this.ingLabel4.Text = "Dairy:";
-            // 
             // ingLabel3
             // 
             this.ingLabel3.AutoSize = true;
             this.ingLabel3.Location = new System.Drawing.Point(23, 253);
             this.ingLabel3.Name = "ingLabel3";
-            this.ingLabel3.Size = new System.Drawing.Size(39, 15);
+            this.ingLabel3.Size = new System.Drawing.Size(94, 15);
             this.ingLabel3.TabIndex = 15;
-            this.ingLabel3.Text = "Fruits:";
+            this.ingLabel3.Text = "Third ingredient:";
             // 
             // ingLabel2
             // 
             this.ingLabel2.AutoSize = true;
             this.ingLabel2.Location = new System.Drawing.Point(23, 191);
             this.ingLabel2.Name = "ingLabel2";
-            this.ingLabel2.Size = new System.Drawing.Size(66, 15);
+            this.ingLabel2.Size = new System.Drawing.Size(106, 15);
             this.ingLabel2.TabIndex = 14;
-            this.ingLabel2.Text = "Vegetables:";
+            this.ingLabel2.Text = "Second ingredient:";
             // 
             // ingLabel1
             // 
             this.ingLabel1.AutoSize = true;
             this.ingLabel1.Location = new System.Drawing.Point(23, 128);
             this.ingLabel1.Name = "ingLabel1";
-            this.ingLabel1.Size = new System.Drawing.Size(37, 15);
+            this.ingLabel1.Size = new System.Drawing.Size(89, 15);
             this.ingLabel1.TabIndex = 13;
-            this.ingLabel1.Text = "Meat:";
-            // 
-            // ingredientComboBox5
-            // 
-            this.ingredientComboBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
-            this.ingredientComboBox5.ForeColor = System.Drawing.SystemColors.Window;
-            this.ingredientComboBox5.FormattingEnabled = true;
-            this.ingredientComboBox5.Location = new System.Drawing.Point(42, 402);
-            this.ingredientComboBox5.Name = "ingredientComboBox5";
-            this.ingredientComboBox5.Size = new System.Drawing.Size(218, 23);
-            this.ingredientComboBox5.TabIndex = 12;
-            // 
-            // ingredientComboBox4
-            // 
-            this.ingredientComboBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
-            this.ingredientComboBox4.ForeColor = System.Drawing.SystemColors.Window;
-            this.ingredientComboBox4.FormattingEnabled = true;
-            this.ingredientComboBox4.Location = new System.Drawing.Point(42, 336);
-            this.ingredientComboBox4.MaxDropDownItems = 13;
-            this.ingredientComboBox4.Name = "ingredientComboBox4";
-            this.ingredientComboBox4.Size = new System.Drawing.Size(218, 23);
-            this.ingredientComboBox4.TabIndex = 11;
+            this.ingLabel1.Text = "First ingredient:";
             // 
             // generalasButton
             // 
@@ -441,10 +394,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 640);
+            this.Controls.Add(this.RecipePanel);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.TippPanel);
             this.Controls.Add(this.mainWindowPanel);
-            this.Controls.Add(this.RecipePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -487,15 +440,11 @@
         private Label tippLabel;
         private TextBox todaysTippTextBox;
         private PictureBox dishPictureBox;
-        private ComboBox ingredientComboBox4;
-        private ComboBox ingredientComboBox5;
         private Button recipeButton;
         private RadioButton noMeatRadioButton;
         private RadioButton meatRadioButton;
         private Label questionLabel;
         private PictureBox resultPictureBox;
-        private Label ingLabel5;
-        private Label ingLabel4;
         private Label ingLabel3;
         private Label ingLabel2;
         private Label ingLabel1;
