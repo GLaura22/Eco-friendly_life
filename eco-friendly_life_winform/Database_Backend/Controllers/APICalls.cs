@@ -270,26 +270,146 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
         public List<RecipeAPI.Rootobject> getRecipeByIngredients(string[] ingredients)
         {
             // recipes that contain all the ingredients passed on by the ingredients array
-            List<RecipeAPI.Rootobject> resultList = new List<RecipeAPI.Rootobject>();
+            // List<RecipeAPI.Meal> resultList = new List<RecipeAPI.Meal>();
 
-            //foreach (var recipe in recipes)
-            //{
-            //    bool hasAllIngredients = true;
-            //    foreach (var ingredient in recipe.Value)
-            //    {
-            //        if (!ingredients.Contains(ingredient))
-            //        {
-            //            hasAllIngredients = false;
-            //            break;
-            //        }
-            //    }
-            //    if (hasAllIngredients)
-            //        return $"Recommended recipe: {recipe.Key}";
-            //}
+            // Dictionary to count how many times we would add the meal to the list
+            // (if the same dish contains two of the wanted ingredients it would be added twice)
+            Dictionary<RecipeAPI.Meal, int> resultList = new Dictionary<RecipeAPI.Meal, int>(); 
+            List<RecipeAPI.Rootobject> wholeDishData = new List<RecipeAPI.Rootobject>();
+            RecipeAPI.Rootobject ing1Result;
+            RecipeAPI.Rootobject ing2Result;
+            RecipeAPI.Rootobject ing3Result;
 
-            //return "No recipe found matching provided ingredients";
+            string restRequest1 = "filter.php?i=" + ingredients[0].ToLower();
+            var request1 = new RestRequest(restRequest1);
+            var response1 = client.Execute(request1);
 
-            return resultList;
+            // we're sure the array has at least one element becouse we're only calling it then
+            // but we have to check if it has a second and third element too
+
+            if (response1.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string ing1rawResponse = response1.Content;
+
+                ing1Result = JsonConvert.DeserializeObject<RecipeAPI.Rootobject>(ing1rawResponse);
+
+                if (ing1Result != null)
+                {
+                    foreach(var obj in ing1Result.meals)
+                    {
+                        // at first every meal would get in
+                        resultList.Add(obj, 1);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Don't have any data");
+                }
+            }
+
+            else
+            {
+                throw new Exception("Can't reach API");
+            }
+
+            int counter = 0;
+            foreach (var ing in ingredients)
+            {
+                if (ing != null)
+                {
+                    counter++;
+                }
+            }
+
+            if(counter == 2)
+            {
+                string restRequest2 = "filter.php?i=" + ingredients[1].ToLower();
+                var request2 = new RestRequest(restRequest2);
+                var response2 = client.Execute(request2);
+
+                if (response2.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    string ing2rawResponse = response1.Content;
+
+                    ing2Result = JsonConvert.DeserializeObject<RecipeAPI.Rootobject>(ing2rawResponse);
+
+                    if (ing2Result != null)
+                    {
+                        foreach (var obj in ing2Result.meals)
+                        {
+                            // if the dish is already in the dictionary we just add one to the number
+                            if (resultList.ContainsKey(obj))
+                            {
+                                // If the dish is already in the dictionary, increment the count
+                                resultList[obj]++;
+                            }
+                            else
+                            {
+                                // If the dish is not in the dictionary, add it with a count of 1
+                                resultList.Add(obj, 1);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Don't have any data");
+                    }
+                }
+            }
+            if(counter == 3) 
+            {
+                string restRequest3 = "filter.php?i=" + ingredients[2].ToLower();
+                var request3 = new RestRequest(restRequest3);
+                var response3 = client.Execute(request3);
+
+                if (response3.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    string ing3rawResponse = response1.Content;
+
+                    ing3Result = JsonConvert.DeserializeObject<RecipeAPI.Rootobject>(ing3rawResponse);
+
+                    if (ing3Result != null)
+                    {
+                        foreach (var obj in ing3Result.meals)
+                        {
+                            if (resultList.ContainsKey(obj))
+                            {
+                                // if the dish is already in the dictionary, increment the count
+                                resultList[obj]++;
+                            }
+                            else
+                            {
+                                // if the dish is not in the dictionary, add it with a count of 1
+                                resultList.Add(obj, 1);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Don't have any data");
+                    }
+                }
+            }
+
+            // sort the dictionary by value in decreasing order
+            // so the dishes with the most matches get on the top of the list
+
+            var sortedResultList = resultList.OrderByDescending(kv => kv.Value).ToDictionary(kv => kv.Key, kv => kv.Value);
+
+            string debug = "";
+            foreach (var result in sortedResultList) 
+            {
+                debug += result.Key.strMeal + " " + result.Value.ToString("0.00") + ", ";
+            }
+
+            MessageBox.Show(debug);
+
+            // converting the short recipes to full ones
+            RecipeAPI.Rootobject meal = getRecipeById(sortedResultList.First().Key.idMeal);
+            wholeDishData.Add(meal);
+
+
+            return wholeDishData;
         }
     }
 }

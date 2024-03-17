@@ -6,6 +6,8 @@ using System.Net.Http.Json;
 using Newtonsoft.Json;
 using System.Net;
 using eco_friendly_life_winform.Database_Backend.Calculator;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics.Metrics;
 
 namespace eco_friendly_life_winform
 {
@@ -37,17 +39,17 @@ namespace eco_friendly_life_winform
             List<Ingredient> ingredients = ingredientController.GetItems();
 
             // meat 12
-            for (int i = 0; i < 13; i++)
+            for (int i = 0; i < 55; i++)
             {
                 ingredientComboBox1.Items.Add(ingredients[i].IngredientName.ToString());
             }
             // vegtables 13
-            for (int i = 13; i < 26; i++)
+            for (int i = 0; i < 55; i++)    // 13-tol 26 volt
             {
                 ingredientComboBox2.Items.Add(ingredients[i].IngredientName.ToString());
             }
             // fruits 13
-            for (int i = 26; i < 39; i++)
+            for (int i = 0; i < 55; i++) // 26-tol 39 volt
             {
                 ingredientComboBox3.Items.Add(ingredients[i].IngredientName.ToString());
             }
@@ -117,11 +119,89 @@ namespace eco_friendly_life_winform
 
             }
 
+            // there are some preffered ingredients
+            else 
+            {
+                string[] wantedIngredients = { wantedIngredient1, wantedIngredient2, wantedIngredient3 };
+
+                prefferedIngredients(wantedIngredients);                
+            }
+
+        }
+
+        private void prefferedIngredients(string[] ingredients)
+        {
+            List<RecipeAPI.Rootobject> filteredListResult = new List<RecipeAPI.Rootobject>();
+            APICalls apiCall = new APICalls();
+            CarbonFootprintCalculator crbFtprnt = new CarbonFootprintCalculator();
+
+            filteredListResult = apiCall.getRecipeByIngredients(ingredients);
+
+            KeyValuePair<RecipeAPI.Rootobject, double> mealwithFootprint = new KeyValuePair<RecipeAPI.Rootobject, double>();
+
+            double carbonFootprint = -1.0;
+            foreach(var dish in filteredListResult)
+            {
+                mealwithFootprint = crbFtprnt.getCarbonFootprint(dish);
+                carbonFootprint = mealwithFootprint.Value;
+            }
+            result = mealwithFootprint.Key;
+
+            resultPanel.Visible = true;
+            resultRecipeLabel.Text = mealwithFootprint.Key.meals[0].strMeal;
+            string formattedValue = carbonFootprint.ToString("0.00");   // only 2 digits should be displayed
+            carbonFootprintLabel.Text = formattedValue + " CO2eq/kg";
+            //MessageBox.Show("lefutott");
+
+            // loading in actual meals image
+            loadInImage(mealwithFootprint.Key.meals[0].strMealThumb, resultPictureBox);
+
+
         }
 
         private void meatAllIngredients()
-        { 
-            
+        {
+            List<RecipeAPI.Rootobject> meatyListResult = new List<RecipeAPI.Rootobject>();
+            APICalls apiCall = new APICalls();
+            CarbonFootprintCalculator crbFtprnt = new CarbonFootprintCalculator();
+
+            meatyListResult = apiCall.getMeatyRecipes();
+
+            Dictionary<RecipeAPI.Rootobject, double> mealsWithCarbonfootprint = new Dictionary<RecipeAPI.Rootobject, double>();
+
+            // getting the carbon footprint of every meal that contains meat
+            foreach (var obj in meatyListResult)
+            {
+                KeyValuePair<RecipeAPI.Rootobject, double> mealwithFootprint = crbFtprnt.getCarbonFootprint(obj);
+                mealsWithCarbonfootprint.Add(mealwithFootprint.Key, mealwithFootprint.Value);
+            }
+
+
+            // sorting the list in decreasing order by the value of the carbon footprints
+            mealsWithCarbonfootprint = mealsWithCarbonfootprint.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            // --------------------------------------------------------
+
+            // saving the result to public variable 
+            result = mealsWithCarbonfootprint.First().Key;
+
+            string meatyResultName = "";
+            double carbonFootprintResult = -1.0;
+            string measurement = "CO2eq/kg";
+            meatyResultName = result.meals[0].strMeal;
+            carbonFootprintResult = mealsWithCarbonfootprint.First().Value;
+            //vegetarianResult += noMeatListResult[1].meals[0].strMeal;
+
+
+            resultPanel.Visible = true;
+            resultRecipeLabel.Text = meatyResultName;
+            string formattedValue = carbonFootprintResult.ToString("0.00");   // only 2 digits should be displayed
+            carbonFootprintLabel.Text = formattedValue + " " + measurement;
+            //MessageBox.Show("lefutott");
+
+            // loading in actual meals image
+            loadInImage(result.meals[0].strMealThumb, resultPictureBox);
+
         }
 
         private void noMeatAllIngredients()
@@ -167,22 +247,27 @@ namespace eco_friendly_life_winform
             result = mealsWithCarbonfootprint.First().Key;
 
             string vegetarianResultName = "";
+            double carbonFootprintResult = -1.0;
             vegetarianResultName = result.meals[0].strMeal;
+            carbonFootprintResult = mealsWithCarbonfootprint.First().Value;
             //vegetarianResult += noMeatListResult[1].meals[0].strMeal;
 
 
             resultPanel.Visible = true;
             resultRecipeLabel.Text = vegetarianResultName;
+            carbonFootprintLabel.Text = carbonFootprintResult.ToString("0.00") + " CO2eq/kg";
             //MessageBox.Show("lefutott");
 
             // loading in actual meals image
             loadInImage(result.meals[0].strMealThumb, resultPictureBox);
         }
 
-        private void apiReadButton_Click(object sender, EventArgs e)
-        {
-            getData();
-        }
+        //private void apiReadButton_Click(object sender, EventArgs e)
+        //{
+        //    getData();
+        //}
+
+        // rando function for testing
 
         private void getData()
         {
@@ -192,21 +277,6 @@ namespace eco_friendly_life_winform
             //var client = new RestClient("https://themealdb.com/api/json/v1/1/");
             //var request = new RestRequest("random.php");
             //var response = client.Execute(request);
-
-            //if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            //{
-            //    string rawResponse = response.Content;
-
-            //    result = JsonConvert.DeserializeObject<RecipeAPI.Rootobject>(rawResponse);
-
-            //    if(result != null)
-            //    {
-            //        foreach(var obj in result.meals) 
-            //        {
-            //            todaysTippTextBox.Text = obj.strMeal;
-            //        }
-            //    }
-            //}
 
             // rando recipe for testing
 
@@ -253,6 +323,65 @@ namespace eco_friendly_life_winform
                     MessageBox.Show("Error downloading image: " + ex.Message);
                 }
             }
+        }
+
+        private void ingredientsButton_Click(object sender, EventArgs e)
+        {
+            string ingredients = "";
+
+            ingredients += result.meals[0].strIngredient1 + "\n";
+            ingredients += result.meals[0].strIngredient2 + "\n";
+            ingredients += result.meals[0].strIngredient3 + "\n";
+            ingredients += result.meals[0].strIngredient4 + "\n";
+            ingredients += result.meals[0].strIngredient5 + "\n";
+            ingredients += result.meals[0].strIngredient6 + "\n";
+            ingredients += result.meals[0].strIngredient7 + "\n";
+            ingredients += result.meals[0].strIngredient8 + "\n";
+            ingredients += result.meals[0].strIngredient9 + "\n";
+            ingredients += result.meals[0].strIngredient10 + "\n";
+
+            if (result.meals[0].strIngredient11 != "")
+            {
+                ingredients += result.meals[0].strIngredient11 + "\n";
+            }
+            if (result.meals[0].strIngredient12 != "")
+            {
+                ingredients += result.meals[0].strIngredient12 + "\n";
+            }
+            if (result.meals[0].strIngredient13 != "")
+            {
+                ingredients += result.meals[0].strIngredient13 + "\n";
+            }
+            if (result.meals[0].strIngredient14 != "")
+            {
+                ingredients += result.meals[0].strIngredient14 + "\n";
+            }
+            if (result.meals[0].strIngredient15 != "")
+            {
+                ingredients += result.meals[0].strIngredient15 + "\n";
+            }
+            if (result.meals[0].strIngredient16 != "")
+            {
+                ingredients += result.meals[0].strIngredient16 + "\n";
+            }
+            if (result.meals[0].strIngredient17 != "")
+            {
+                ingredients += result.meals[0].strIngredient17 + "\n";
+            }
+            if (result.meals[0].strIngredient18 != "")
+            {
+                ingredients += result.meals[0].strIngredient18 + "\n";
+            }
+            if (result.meals[0].strIngredient19 != "")
+            {
+                ingredients += result.meals[0].strIngredient19 + "\n";
+            }
+            if (result.meals[0].strIngredient20 != "")
+            {
+                ingredients += result.meals[0].strIngredient20 + "\n";
+            }
+
+            MessageBox.Show(ingredients);
         }
     }
 }

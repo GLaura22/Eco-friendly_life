@@ -37,10 +37,7 @@
             this.tippsAndTricksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainWindowPanel = new System.Windows.Forms.Panel();
             this.RecipePanel = new System.Windows.Forms.Panel();
-            this.resultPanel = new System.Windows.Forms.Panel();
-            this.resultRecipeLabel = new System.Windows.Forms.Label();
-            this.recipeButton = new System.Windows.Forms.Button();
-            this.resultPictureBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.noMeatRadioButton = new System.Windows.Forms.RadioButton();
             this.meatRadioButton = new System.Windows.Forms.RadioButton();
             this.questionLabel = new System.Windows.Forms.Label();
@@ -57,9 +54,14 @@
             this.ingredientComboBox1 = new System.Windows.Forms.ComboBox();
             this.IngredientsLabel = new System.Windows.Forms.Label();
             this.recipeLabel = new System.Windows.Forms.Label();
+            this.resultPanel = new System.Windows.Forms.Panel();
+            this.ingredientsButton = new System.Windows.Forms.Button();
+            this.carbonFootprintLabel = new System.Windows.Forms.Label();
+            this.resultRecipeLabel = new System.Windows.Forms.Label();
+            this.recipeButton = new System.Windows.Forms.Button();
+            this.resultPictureBox = new System.Windows.Forms.PictureBox();
             this.TippPanel = new System.Windows.Forms.Panel();
             this.dishPictureBox = new System.Windows.Forms.PictureBox();
-            this.apiReadButton = new System.Windows.Forms.Button();
             this.todaysTippTextBox = new System.Windows.Forms.TextBox();
             this.tippLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -76,7 +78,7 @@
             // 
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.titleLabel.Location = new System.Drawing.Point(35, 13);
+            this.titleLabel.Location = new System.Drawing.Point(65, 13);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(215, 40);
             this.titleLabel.TabIndex = 0;
@@ -85,7 +87,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 56);
+            this.pictureBox1.Location = new System.Drawing.Point(54, 65);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(255, 240);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -96,11 +98,11 @@
             // 
             this.habitLabel.AutoSize = true;
             this.habitLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.habitLabel.Location = new System.Drawing.Point(3, 363);
+            this.habitLabel.Location = new System.Drawing.Point(25, 363);
             this.habitLabel.Name = "habitLabel";
-            this.habitLabel.Size = new System.Drawing.Size(268, 30);
+            this.habitLabel.Size = new System.Drawing.Size(306, 60);
             this.habitLabel.TabIndex = 2;
-            this.habitLabel.Text = "A változás velünk kezdődik!";
+            this.habitLabel.Text = "       Change starts with you, \n but it doesn\'t start until you do";
             // 
             // menuStrip1
             // 
@@ -132,14 +134,14 @@
             this.mainWindowPanel.Controls.Add(this.habitLabel);
             this.mainWindowPanel.Controls.Add(this.pictureBox1);
             this.mainWindowPanel.Controls.Add(this.titleLabel);
-            this.mainWindowPanel.Location = new System.Drawing.Point(254, 60);
+            this.mainWindowPanel.Location = new System.Drawing.Point(224, 60);
             this.mainWindowPanel.Name = "mainWindowPanel";
-            this.mainWindowPanel.Size = new System.Drawing.Size(284, 409);
+            this.mainWindowPanel.Size = new System.Drawing.Size(355, 444);
             this.mainWindowPanel.TabIndex = 4;
             // 
             // RecipePanel
             // 
-            this.RecipePanel.Controls.Add(this.resultPanel);
+            this.RecipePanel.Controls.Add(this.label1);
             this.RecipePanel.Controls.Add(this.noMeatRadioButton);
             this.RecipePanel.Controls.Add(this.meatRadioButton);
             this.RecipePanel.Controls.Add(this.questionLabel);
@@ -156,51 +158,20 @@
             this.RecipePanel.Controls.Add(this.ingredientComboBox1);
             this.RecipePanel.Controls.Add(this.IngredientsLabel);
             this.RecipePanel.Controls.Add(this.recipeLabel);
+            this.RecipePanel.Controls.Add(this.resultPanel);
             this.RecipePanel.Location = new System.Drawing.Point(12, 73);
             this.RecipePanel.Name = "RecipePanel";
             this.RecipePanel.Size = new System.Drawing.Size(740, 543);
             this.RecipePanel.TabIndex = 5;
             // 
-            // resultPanel
+            // label1
             // 
-            this.resultPanel.Controls.Add(this.resultRecipeLabel);
-            this.resultPanel.Controls.Add(this.recipeButton);
-            this.resultPanel.Controls.Add(this.resultPictureBox);
-            this.resultPanel.Location = new System.Drawing.Point(342, 91);
-            this.resultPanel.Name = "resultPanel";
-            this.resultPanel.Size = new System.Drawing.Size(362, 340);
-            this.resultPanel.TabIndex = 23;
-            // 
-            // resultRecipeLabel
-            // 
-            this.resultRecipeLabel.AutoSize = true;
-            this.resultRecipeLabel.Location = new System.Drawing.Point(63, 231);
-            this.resultRecipeLabel.Name = "resultRecipeLabel";
-            this.resultRecipeLabel.Size = new System.Drawing.Size(0, 15);
-            this.resultRecipeLabel.TabIndex = 23;
-            // 
-            // recipeButton
-            // 
-            this.recipeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
-            this.recipeButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.recipeButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.recipeButton.Location = new System.Drawing.Point(103, 273);
-            this.recipeButton.Name = "recipeButton";
-            this.recipeButton.Size = new System.Drawing.Size(153, 46);
-            this.recipeButton.TabIndex = 22;
-            this.recipeButton.Text = "Recipe";
-            this.recipeButton.UseVisualStyleBackColor = false;
-            this.recipeButton.Click += new System.EventHandler(this.recipeButton_Click);
-            // 
-            // resultPictureBox
-            // 
-            this.resultPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("resultPictureBox.Image")));
-            this.resultPictureBox.Location = new System.Drawing.Point(40, 19);
-            this.resultPictureBox.Name = "resultPictureBox";
-            this.resultPictureBox.Size = new System.Drawing.Size(292, 209);
-            this.resultPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.resultPictureBox.TabIndex = 18;
-            this.resultPictureBox.TabStop = false;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 446);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(247, 15);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "If you didn\'t choose any preffered ingredients";
             // 
             // noMeatRadioButton
             // 
@@ -229,9 +200,9 @@
             this.questionLabel.AutoSize = true;
             this.questionLabel.Location = new System.Drawing.Point(23, 465);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(189, 15);
+            this.questionLabel.Size = new System.Drawing.Size(188, 15);
             this.questionLabel.TabIndex = 19;
-            this.questionLabel.Text = "Should the dish contain any meat?";
+            this.questionLabel.Text = "should the dish contain any meat?";
             // 
             // ingLabel5
             // 
@@ -361,10 +332,75 @@
             this.recipeLabel.TabIndex = 0;
             this.recipeLabel.Text = "Choose what kind of food you\'d like!";
             // 
+            // resultPanel
+            // 
+            this.resultPanel.Controls.Add(this.ingredientsButton);
+            this.resultPanel.Controls.Add(this.carbonFootprintLabel);
+            this.resultPanel.Controls.Add(this.resultRecipeLabel);
+            this.resultPanel.Controls.Add(this.recipeButton);
+            this.resultPanel.Controls.Add(this.resultPictureBox);
+            this.resultPanel.Location = new System.Drawing.Point(342, 91);
+            this.resultPanel.Name = "resultPanel";
+            this.resultPanel.Size = new System.Drawing.Size(362, 340);
+            this.resultPanel.TabIndex = 23;
+            // 
+            // ingredientsButton
+            // 
+            this.ingredientsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.ingredientsButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ingredientsButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ingredientsButton.Location = new System.Drawing.Point(213, 288);
+            this.ingredientsButton.Name = "ingredientsButton";
+            this.ingredientsButton.Size = new System.Drawing.Size(119, 46);
+            this.ingredientsButton.TabIndex = 25;
+            this.ingredientsButton.Text = "Ingredients";
+            this.ingredientsButton.UseVisualStyleBackColor = false;
+            this.ingredientsButton.Click += new System.EventHandler(this.ingredientsButton_Click);
+            // 
+            // carbonFootprintLabel
+            // 
+            this.carbonFootprintLabel.AutoSize = true;
+            this.carbonFootprintLabel.Location = new System.Drawing.Point(255, 244);
+            this.carbonFootprintLabel.Name = "carbonFootprintLabel";
+            this.carbonFootprintLabel.Size = new System.Drawing.Size(104, 15);
+            this.carbonFootprintLabel.TabIndex = 24;
+            this.carbonFootprintLabel.Text = "*carbon footprint*";
+            // 
+            // resultRecipeLabel
+            // 
+            this.resultRecipeLabel.AutoSize = true;
+            this.resultRecipeLabel.Location = new System.Drawing.Point(40, 244);
+            this.resultRecipeLabel.Name = "resultRecipeLabel";
+            this.resultRecipeLabel.Size = new System.Drawing.Size(82, 15);
+            this.resultRecipeLabel.TabIndex = 23;
+            this.resultRecipeLabel.Text = "*recipe name*";
+            // 
+            // recipeButton
+            // 
+            this.recipeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.recipeButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.recipeButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.recipeButton.Location = new System.Drawing.Point(48, 288);
+            this.recipeButton.Name = "recipeButton";
+            this.recipeButton.Size = new System.Drawing.Size(102, 46);
+            this.recipeButton.TabIndex = 22;
+            this.recipeButton.Text = "Recipe";
+            this.recipeButton.UseVisualStyleBackColor = false;
+            this.recipeButton.Click += new System.EventHandler(this.recipeButton_Click);
+            // 
+            // resultPictureBox
+            // 
+            this.resultPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("resultPictureBox.Image")));
+            this.resultPictureBox.Location = new System.Drawing.Point(40, 19);
+            this.resultPictureBox.Name = "resultPictureBox";
+            this.resultPictureBox.Size = new System.Drawing.Size(292, 209);
+            this.resultPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.resultPictureBox.TabIndex = 18;
+            this.resultPictureBox.TabStop = false;
+            // 
             // TippPanel
             // 
             this.TippPanel.Controls.Add(this.dishPictureBox);
-            this.TippPanel.Controls.Add(this.apiReadButton);
             this.TippPanel.Controls.Add(this.todaysTippTextBox);
             this.TippPanel.Controls.Add(this.tippLabel);
             this.TippPanel.Location = new System.Drawing.Point(221, 73);
@@ -380,16 +416,6 @@
             this.dishPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.dishPictureBox.TabIndex = 3;
             this.dishPictureBox.TabStop = false;
-            // 
-            // apiReadButton
-            // 
-            this.apiReadButton.Location = new System.Drawing.Point(38, 71);
-            this.apiReadButton.Name = "apiReadButton";
-            this.apiReadButton.Size = new System.Drawing.Size(133, 35);
-            this.apiReadButton.TabIndex = 2;
-            this.apiReadButton.Text = "Read API";
-            this.apiReadButton.UseVisualStyleBackColor = true;
-            this.apiReadButton.Click += new System.EventHandler(this.apiReadButton_Click);
             // 
             // todaysTippTextBox
             // 
@@ -415,10 +441,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 640);
-            this.Controls.Add(this.RecipePanel);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.TippPanel);
             this.Controls.Add(this.mainWindowPanel);
+            this.Controls.Add(this.RecipePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -460,7 +486,6 @@
         private Panel TippPanel;
         private Label tippLabel;
         private TextBox todaysTippTextBox;
-        private Button apiReadButton;
         private PictureBox dishPictureBox;
         private ComboBox ingredientComboBox4;
         private ComboBox ingredientComboBox5;
@@ -476,5 +501,8 @@
         private Label ingLabel1;
         private Panel resultPanel;
         private Label resultRecipeLabel;
+        private Label carbonFootprintLabel;
+        private Label label1;
+        private Button ingredientsButton;
     }
 }
