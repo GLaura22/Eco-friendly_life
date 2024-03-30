@@ -38,18 +38,18 @@ namespace eco_friendly_life_winform
 
             List<Ingredient> ingredients = ingredientController.GetItems();
 
-            // meat 12
-            for (int i = 0; i < 55; i++)
+            
+            for (int i = 0; i < 45; i++)
             {
                 ingredientComboBox1.Items.Add(ingredients[i].IngredientName.ToString());
             }
-            // vegtables 13
-            for (int i = 0; i < 55; i++)    // 13-tol 26 volt
+            
+            for (int i = 0; i < 45; i++)    
             {
                 ingredientComboBox2.Items.Add(ingredients[i].IngredientName.ToString());
             }
-            // fruits 13
-            for (int i = 0; i < 55; i++) // 26-tol 39 volt
+            
+            for (int i = 0; i < 45; i++) 
             {
                 ingredientComboBox3.Items.Add(ingredients[i].IngredientName.ToString());
             }
@@ -123,24 +123,43 @@ namespace eco_friendly_life_winform
 
             filteredListResult = apiCall.getRecipeByIngredients(ingredients);
 
-            KeyValuePair<RecipeAPI.Rootobject, double> mealwithFootprint = new KeyValuePair<RecipeAPI.Rootobject, double>();
+            // if there's only one element that have mutliple ingredients in it this list contains only one dish 
+            Dictionary<RecipeAPI.Rootobject, double> mealswithFootprint = new Dictionary<RecipeAPI.Rootobject, double>();
 
             double carbonFootprint = -1.0;
-            foreach(var dish in filteredListResult)
+            foreach (var dish in filteredListResult)
             {
-                mealwithFootprint = crbFtprnt.getCarbonFootprint(dish);
-                carbonFootprint = mealwithFootprint.Value;
+                // we collect the dishes carbon footprint in the dict
+                KeyValuePair<RecipeAPI.Rootobject, double> actmealwithFootprint = new KeyValuePair<RecipeAPI.Rootobject, double>();
+                actmealwithFootprint = crbFtprnt.getCarbonFootprint(dish);
+                mealswithFootprint.Add(actmealwithFootprint.Key, actmealwithFootprint.Value);
             }
-            result = mealwithFootprint.Key;
+
+            // sorting the list in decreasing order by the value of the carbon footprints
+            mealswithFootprint = mealswithFootprint.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            // ---------------------------- debug ----------------------------------------------------------
+            string szenvedes = "tobb etel is van amiben tobb hozzavalo is szerepel: ";
+
+            foreach(var kvp in mealswithFootprint) 
+            {
+                szenvedes += "(" + kvp.Key.meals[0].strMeal + " - " + kvp.Value.ToString() + "), ";
+            }
+
+            MessageBox.Show(szenvedes);
+            // ---------------------------- debug vege ----------------------------------------------------------
+
+            result = mealswithFootprint.First().Key;
+            carbonFootprint = mealswithFootprint.First().Value;
 
             resultPanel.Visible = true;
-            resultRecipeLabel.Text = mealwithFootprint.Key.meals[0].strMeal;
+            resultRecipeLabel.Text = result.meals[0].strMeal;
             string formattedValue = carbonFootprint.ToString("0.00");   // only 2 digits should be displayed
             carbonFootprintLabel.Text = formattedValue + " CO2eq/kg";
             //MessageBox.Show("lefutott");
 
             // loading in actual meals image
-            loadInImage(mealwithFootprint.Key.meals[0].strMealThumb, resultPictureBox);
+            loadInImage(result.meals[0].strMealThumb, resultPictureBox);
 
 
         }
