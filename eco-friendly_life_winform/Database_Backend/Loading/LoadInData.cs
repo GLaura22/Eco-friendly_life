@@ -57,31 +57,31 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                                 IngredientName = "Pork",
                                 CarbonFootprint = 5.72
                             },
-                            new Ingredient
-                            {
-                                IngredientName = "Duck",
-                                CarbonFootprint = 4.10
-                            },
-                            new Ingredient
-                            {
-                                IngredientName = "Turkey",
-                                CarbonFootprint = 4.08
-                            },
-                            new Ingredient
-                            {
-                                IngredientName = "Fish",
-                                CarbonFootprint = 4.99
-                            },
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Duck",
+                            //    CarbonFootprint = 4.10
+                            //},
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Turkey",
+                            //    CarbonFootprint = 4.08
+                            //},
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Fish",
+                            //    CarbonFootprint = 4.99
+                            //},
                             new Ingredient
                             {
                                 IngredientName = "Tuna",
                                 CarbonFootprint = 2.64
                             },
-                            new Ingredient
-                            {
-                                IngredientName = "Shrimp",
-                                CarbonFootprint = 15.07
-                            },
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Shrimp",
+                            //    CarbonFootprint = 15.07
+                            //},
                             new Ingredient
                             {
                                 IngredientName = "Egg",
@@ -100,11 +100,11 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                                 IngredientName = "Aubergine",
                                 CarbonFootprint = 0.19,
                             },
-                            new Ingredient
-                            {
-                                IngredientName = "Beans",
-                                CarbonFootprint = 0.43,
-                            },
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Beans",
+                            //    CarbonFootprint = 0.43,
+                            //},
                             new Ingredient
                             {
                                 IngredientName = "Broccoli",
@@ -145,11 +145,11 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                                 IngredientName = "Garlic",
                                 CarbonFootprint = 0.71,
                             },
-                            new Ingredient
-                            {
-                                IngredientName = "Olives",
-                                CarbonFootprint = 0.64,
-                            },
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Olives",
+                            //    CarbonFootprint = 0.64,
+                            //},
                             new Ingredient
                             {
                                 IngredientName = "Pumpkin",
@@ -218,11 +218,11 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                                 IngredientName = "Blackberries",
                                 CarbonFootprint = 0.42,
                             },
-                            new Ingredient
-                            {
-                                IngredientName = "Cherry",
-                                CarbonFootprint = 0.46,
-                            },
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Cherry",
+                            //    CarbonFootprint = 0.46,
+                            //},
 
                             // -------- dairy (5) ---------------------------------------------------------
 
@@ -246,11 +246,11 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                                 IngredientName = "Milk",
                                 CarbonFootprint = 1.31,
                             },
-                            new Ingredient
-                            {
-                                IngredientName = "Yogurt",
-                                CarbonFootprint = 1.69,
-                            },
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Yogurt",
+                            //    CarbonFootprint = 1.69,
+                            //},
 
                             // -------- other (12) ---------------------------------------------------------
 
@@ -264,16 +264,16 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                                 IngredientName = "Tofu",
                                 CarbonFootprint = 2.27,
                             },
-                            new Ingredient
-                            {
-                                IngredientName = "Pasta",
-                                CarbonFootprint = 3.15,
-                            },
-                            new Ingredient
-                            {
-                                IngredientName = "Paste",
-                                CarbonFootprint = 3.15,
-                            },
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Pasta",
+                            //    CarbonFootprint = 3.15,
+                            //},
+                            //new Ingredient
+                            //{
+                            //    IngredientName = "Paste",
+                            //    CarbonFootprint = 3.15,
+                            //},
                             new Ingredient
                             {
                                 IngredientName = "Sugar",
@@ -281,7 +281,7 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                             },
                             new Ingredient
                             {
-                                IngredientName = "Mushroom",
+                                IngredientName = "Mushrooms",
                                 CarbonFootprint = 2.06,
                             },
                             new Ingredient
@@ -301,7 +301,7 @@ namespace eco_friendly_life_winform.Database_Backend.Loading
                             },
                             new Ingredient
                             {
-                                IngredientName = "Chocolate",
+                                IngredientName = "Cocoa",
                                 CarbonFootprint = 3.60,
                             },
                             new Ingredient
