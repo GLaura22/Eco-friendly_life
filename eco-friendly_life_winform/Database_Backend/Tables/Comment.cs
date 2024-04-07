@@ -13,7 +13,11 @@ namespace eco_friendly_life_winform.Database_Backend.Tables
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CommentID { get; set; }
-        public string Content { get; set; }
+        public int Rating { get; set; }
         public int UserID {get; set;}
+        public string MealID { get; set;}
+
+        [Column(TypeName = "image")] // Specify the data type as "image" in SQL Server
+        public byte[] MealImage { get; set; } // Store the image as byte array
     }
 }

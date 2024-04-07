@@ -194,23 +194,23 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             List<RecipeAPI.Meal> beefMeals = new List<RecipeAPI.Meal>();
 
             var request2 = new RestRequest("filter.php?c=Chicken");
-            var response2 = client.Execute(request1);
+            var response2 = client.Execute(request2);
             List<RecipeAPI.Meal> chickenMeals = new List<RecipeAPI.Meal>();
 
             var request3 = new RestRequest("filter.php?c=Lamb");
-            var response3 = client.Execute(request1);
+            var response3 = client.Execute(request3);
             List<RecipeAPI.Meal> lambMeals = new List<RecipeAPI.Meal>();
 
             var request4 = new RestRequest("filter.php?c=Pork");
-            var response4 = client.Execute(request1);
+            var response4 = client.Execute(request4);
             List<RecipeAPI.Meal> porkMeals = new List<RecipeAPI.Meal>();
 
             var request5 = new RestRequest("filter.php?c=Seafood");
-            var response5 = client.Execute(request1);
+            var response5 = client.Execute(request5);
             List<RecipeAPI.Meal> seafoodMeals = new List<RecipeAPI.Meal>();
 
             var request6 = new RestRequest("filter.php?c=Goat");
-            var response6 = client.Execute(request1);
+            var response6 = client.Execute(request6);
             List<RecipeAPI.Meal> goatMeals = new List<RecipeAPI.Meal>();
 
 
@@ -246,6 +246,21 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     }
 
                     foreach (var obj in chickenResult.meals)
+                    {
+                        resultList.Add(obj);
+                    }
+
+                    foreach (var obj in lambResult.meals)
+                    {
+                        resultList.Add(obj);
+                    }
+
+                    foreach (var obj in seafoodResult.meals)
+                    {
+                        resultList.Add(obj);
+                    }
+
+                    foreach (var obj in goatResult.meals)
                     {
                         resultList.Add(obj);
                     }

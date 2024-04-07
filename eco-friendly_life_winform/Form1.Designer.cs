@@ -35,7 +35,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.recipeSuggestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tippsAndTricksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reviewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainWindowPanel = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.RecipePanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.noMeatRadioButton = new System.Windows.Forms.RadioButton();
@@ -60,6 +62,22 @@
             this.dishPictureBox = new System.Windows.Forms.PictureBox();
             this.todaysTippTextBox = new System.Windows.Forms.TextBox();
             this.tippLabel = new System.Windows.Forms.Label();
+            this.userNameLabel = new System.Windows.Forms.Label();
+            this.ratingPanel = new System.Windows.Forms.Panel();
+            this.commentsDataGridView = new System.Windows.Forms.DataGridView();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.rateButton = new System.Windows.Forms.Button();
+            this.ratingBar = new System.Windows.Forms.TrackBar();
+            this.ratedMealNameTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.UserColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MealColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RatingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.mainWindowPanel.SuspendLayout();
@@ -68,6 +86,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.TippPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dishPictureBox)).BeginInit();
+            this.ratingPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ratingBar)).BeginInit();
             this.SuspendLayout();
             // 
             // titleLabel
@@ -96,15 +118,16 @@
             this.habitLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.habitLabel.Location = new System.Drawing.Point(25, 363);
             this.habitLabel.Name = "habitLabel";
-            this.habitLabel.Size = new System.Drawing.Size(306, 60);
+            this.habitLabel.Size = new System.Drawing.Size(319, 60);
             this.habitLabel.TabIndex = 2;
-            this.habitLabel.Text = "       Change starts with you, \n but it doesn\'t start until you do";
+            this.habitLabel.Text = "       \"Change starts with you, \n but it doesn\'t start until you do.\"";
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.recipeSuggestionToolStripMenuItem,
-            this.tippsAndTricksToolStripMenuItem});
+            this.tippsAndTricksToolStripMenuItem,
+            this.reviewsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(784, 24);
@@ -125,15 +148,33 @@
             this.tippsAndTricksToolStripMenuItem.Text = "Tipps and Tricks";
             this.tippsAndTricksToolStripMenuItem.Click += new System.EventHandler(this.tippsAndTricksToolStripMenuItem_Click);
             // 
+            // reviewsToolStripMenuItem
+            // 
+            this.reviewsToolStripMenuItem.Name = "reviewsToolStripMenuItem";
+            this.reviewsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.reviewsToolStripMenuItem.Text = "Reviews";
+            this.reviewsToolStripMenuItem.Click += new System.EventHandler(this.reviewsToolStripMenuItem_Click);
+            // 
             // mainWindowPanel
             // 
+            this.mainWindowPanel.Controls.Add(this.label2);
             this.mainWindowPanel.Controls.Add(this.habitLabel);
             this.mainWindowPanel.Controls.Add(this.pictureBox1);
             this.mainWindowPanel.Controls.Add(this.titleLabel);
             this.mainWindowPanel.Location = new System.Drawing.Point(224, 60);
             this.mainWindowPanel.Name = "mainWindowPanel";
-            this.mainWindowPanel.Size = new System.Drawing.Size(355, 444);
+            this.mainWindowPanel.Size = new System.Drawing.Size(434, 474);
             this.mainWindowPanel.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(286, 435);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 21);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Tom Ziglar";
             // 
             // RecipePanel
             // 
@@ -389,15 +430,168 @@
             this.tippLabel.TabIndex = 0;
             this.tippLabel.Text = "Today\'s eco-friendly tipp:";
             // 
+            // userNameLabel
+            // 
+            this.userNameLabel.AutoSize = true;
+            this.userNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.userNameLabel.Location = new System.Drawing.Point(609, 35);
+            this.userNameLabel.Name = "userNameLabel";
+            this.userNameLabel.Size = new System.Drawing.Size(53, 21);
+            this.userNameLabel.TabIndex = 7;
+            this.userNameLabel.Text = "label3";
+            // 
+            // ratingPanel
+            // 
+            this.ratingPanel.Controls.Add(this.commentsDataGridView);
+            this.ratingPanel.Controls.Add(this.pictureBox2);
+            this.ratingPanel.Controls.Add(this.rateButton);
+            this.ratingPanel.Controls.Add(this.ratingBar);
+            this.ratingPanel.Controls.Add(this.ratedMealNameTextBox);
+            this.ratingPanel.Controls.Add(this.label6);
+            this.ratingPanel.Controls.Add(this.label5);
+            this.ratingPanel.Controls.Add(this.label4);
+            this.ratingPanel.Controls.Add(this.label3);
+            this.ratingPanel.Location = new System.Drawing.Point(15, 59);
+            this.ratingPanel.Name = "ratingPanel";
+            this.ratingPanel.Size = new System.Drawing.Size(757, 569);
+            this.ratingPanel.TabIndex = 8;
+            // 
+            // commentsDataGridView
+            // 
+            this.commentsDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.commentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.commentsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.UserColumn,
+            this.MealColumn,
+            this.RatingColumn,
+            this.ImageColumn});
+            this.commentsDataGridView.GridColor = System.Drawing.SystemColors.MenuBar;
+            this.commentsDataGridView.Location = new System.Drawing.Point(20, 328);
+            this.commentsDataGridView.Name = "commentsDataGridView";
+            this.commentsDataGridView.RowTemplate.Height = 25;
+            this.commentsDataGridView.Size = new System.Drawing.Size(717, 226);
+            this.commentsDataGridView.TabIndex = 9;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(215, 181);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(101, 62);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // rateButton
+            // 
+            this.rateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.rateButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rateButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.rateButton.Location = new System.Drawing.Point(479, 233);
+            this.rateButton.Name = "rateButton";
+            this.rateButton.Size = new System.Drawing.Size(95, 45);
+            this.rateButton.TabIndex = 7;
+            this.rateButton.Text = "OK";
+            this.rateButton.UseVisualStyleBackColor = false;
+            this.rateButton.Click += new System.EventHandler(this.rateButton_Click);
+            // 
+            // ratingBar
+            // 
+            this.ratingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.ratingBar.Location = new System.Drawing.Point(226, 118);
+            this.ratingBar.Maximum = 5;
+            this.ratingBar.Minimum = 1;
+            this.ratingBar.Name = "ratingBar";
+            this.ratingBar.Size = new System.Drawing.Size(232, 45);
+            this.ratingBar.TabIndex = 5;
+            this.ratingBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.ratingBar.Value = 1;
+            // 
+            // ratedMealNameTextBox
+            // 
+            this.ratedMealNameTextBox.Location = new System.Drawing.Point(277, 86);
+            this.ratedMealNameTextBox.Name = "ratedMealNameTextBox";
+            this.ratedMealNameTextBox.Size = new System.Drawing.Size(275, 23);
+            this.ratedMealNameTextBox.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(56, 183);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(82, 15);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "A picture of it:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(56, 134);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(128, 15);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "How well it turned out:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(55, 90);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(204, 15);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "The name of the recipe you prepared:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(52, 34);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(522, 25);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Have you made one of the recipes? Share the results with us!";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // UserColumn
+            // 
+            this.UserColumn.HeaderText = "User";
+            this.UserColumn.Name = "UserColumn";
+            this.UserColumn.ReadOnly = true;
+            // 
+            // MealColumn
+            // 
+            this.MealColumn.HeaderText = "Meal";
+            this.MealColumn.Name = "MealColumn";
+            this.MealColumn.ReadOnly = true;
+            // 
+            // RatingColumn
+            // 
+            this.RatingColumn.HeaderText = "Rating";
+            this.RatingColumn.Name = "RatingColumn";
+            this.RatingColumn.ReadOnly = true;
+            // 
+            // ImageColumn
+            // 
+            this.ImageColumn.HeaderText = "Image of it";
+            this.ImageColumn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.ImageColumn.Name = "ImageColumn";
+            this.ImageColumn.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 640);
+            this.Controls.Add(this.ratingPanel);
+            this.Controls.Add(this.userNameLabel);
+            this.Controls.Add(this.mainWindowPanel);
             this.Controls.Add(this.RecipePanel);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.TippPanel);
-            this.Controls.Add(this.mainWindowPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -415,6 +609,11 @@
             this.TippPanel.ResumeLayout(false);
             this.TippPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dishPictureBox)).EndInit();
+            this.ratingPanel.ResumeLayout(false);
+            this.ratingPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ratingBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -453,5 +652,23 @@
         private Label carbonFootprintLabel;
         private Label label1;
         private Button ingredientsButton;
+        private Label label2;
+        private Label userNameLabel;
+        private ToolStripMenuItem reviewsToolStripMenuItem;
+        private Panel ratingPanel;
+        private Button rateButton;
+        private TrackBar ratingBar;
+        private TextBox ratedMealNameTextBox;
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private Label label3;
+        private OpenFileDialog openFileDialog1;
+        private PictureBox pictureBox2;
+        private DataGridView commentsDataGridView;
+        private DataGridViewTextBoxColumn UserColumn;
+        private DataGridViewTextBoxColumn MealColumn;
+        private DataGridViewTextBoxColumn RatingColumn;
+        private DataGridViewImageColumn ImageColumn;
     }
 }

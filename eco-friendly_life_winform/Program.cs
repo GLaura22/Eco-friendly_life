@@ -11,13 +11,13 @@ namespace eco_friendly_life_winform
         static void Main()
         {
 
-            LoadInData x = new LoadInData();
-            x.DataLoad();
+            //LoadInData x = new LoadInData();
+            //x.DataLoad();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new Login());
         }
     }
 }

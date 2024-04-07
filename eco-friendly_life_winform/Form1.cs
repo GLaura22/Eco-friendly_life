@@ -8,6 +8,10 @@ using System.Net;
 using eco_friendly_life_winform.Database_Backend.Calculator;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics.Metrics;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Windows.Forms;
 
 namespace eco_friendly_life_winform
 {
@@ -15,14 +19,26 @@ namespace eco_friendly_life_winform
     {
 
         RecipeAPI.Rootobject result;
+        private Person user = new Person { UserID = 0, UserName = "", Password = "" };
+        private int actUserId = 0;
 
-        public Form1()
+        public Form1(int userId)
         {
             InitializeComponent();
             mainWindowPanel.Visible = true;
             RecipePanel.Visible = false;
             TippPanel.Visible = false;
             resultPanel.Visible = false;
+            ratingPanel.Visible = false;
+            user.UserID = userId;
+
+            //MessageBox.Show(userId.ToString());
+            PersonController personController = new PersonController();
+
+            string actUserName = personController.GetUsername(userId);
+            userNameLabel.Text = "Hi, " + actUserName + "!";
+            actUserId = userId;
+
         }
 
 
@@ -32,6 +48,7 @@ namespace eco_friendly_life_winform
             TippPanel.Visible = false;
             RecipePanel.Visible = true;
             resultPanel.Visible = false;
+            ratingPanel.Visible = false;
             ingredientComboBox1.Items.Clear();
 
             IngredientController ingredientController = new();
@@ -62,6 +79,7 @@ namespace eco_friendly_life_winform
             mainWindowPanel.Visible = false;
             RecipePanel.Visible = false;
             TippPanel.Visible = true;
+            ratingPanel.Visible = false;
 
             TippController tippController = new();
 
@@ -83,7 +101,6 @@ namespace eco_friendly_life_winform
             wantedIngredient1 = ingredientComboBox1.Text;
             wantedIngredient2 = ingredientComboBox2.Text;
             wantedIngredient3 = ingredientComboBox3.Text;
-
 
             string tipus = string.Empty;
 
@@ -387,6 +404,94 @@ namespace eco_friendly_life_winform
             }
 
             MessageBox.Show(ingredients);
+        }
+
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            string filename = "";
+
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "Image Files(*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg";
+            file.FilterIndex = 1;
+
+            file.Multiselect = false;
+
+
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                filename = file.FileName;
+                //MessageBox.Show(file.FileName);
+
+                // Get the selected file path.
+                string selectedImagePath = file.FileName;
+
+                // Assign the image file to PictureBox
+                pictureBox2.ImageLocation = selectedImagePath;
+            }
+
+        }
+
+        private void rateButton_Click(object sender, EventArgs e)
+        {
+            CommentController commentController = new CommentController();
+
+            // getting the data for the comment
+            string mealName = ratedMealNameTextBox.Text;
+            int rating = ratingBar.Value;
+            byte[] imageByteArray = commentController.ImageConvertToByteArray(pictureBox2.Image);
+
+            // getting the mealId by the name
+            APICalls recipeController = new APICalls();
+            RecipeAPI.Rootobject actDish = recipeController.getRecipeByNameCall(mealName);
+            MessageBox.Show(actDish.meals[0].strMeal);
+            string actDishId = actDish.meals[0].idMeal;
+
+            Comment newComment = new Comment { MealImage = imageByteArray, Rating = rating, UserID = actUserId ,MealID = actDishId };
+
+            int debug = commentController.AddComment(newComment);
+
+            if(debug == 0) 
+            {
+                MessageBox.Show("Sorry, we couldn't save your rating!");
+            }
+
+        }
+
+        private void reviewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mainWindowPanel.Visible = false;
+            RecipePanel.Visible = false;
+            TippPanel.Visible = false;
+            ratingPanel.Visible = true;
+
+            commentsDataGridView.Rows.Clear();
+            commentsDataGridView.Columns[0].Width = 120; // Username column
+            commentsDataGridView.Columns[1].Width = 200; // Meal column
+            commentsDataGridView.Columns[2].Width = 60;  // Rating column
+            commentsDataGridView.Columns[3].Width = 240; // Image column
+
+            CommentController commentController = new CommentController();
+            List<Comment> comments = commentController.GetCommentList();
+
+            PersonController userController = new PersonController();
+            APICalls aPICalls = new APICalls();
+
+            foreach(var comment in comments)
+            {
+                
+                string username = userController.GetUsername(comment.UserID);
+                string rating = comment.Rating.ToString();
+                Image actImage = commentController.ByteArrayConvertToImage(comment.MealImage);
+
+                RecipeAPI.Rootobject actmeal = aPICalls.getRecipeById(comment.MealID);
+
+                int rowIndex = commentsDataGridView.Rows.Add(username, actmeal.meals[0].strMeal, rating, actImage);
+
+                // Set row height
+                commentsDataGridView.Rows[rowIndex].Height = 100;
+
+            }
         }
     }
 }

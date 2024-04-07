@@ -14,8 +14,6 @@ namespace eco_friendly_life_winform.Database_Backend.Calculator
         public KeyValuePair<RecipeAPI.Rootobject, double> getCarbonFootprint(RecipeAPI.Rootobject dish)
         {
             double carbonResult = 0.0;
-            //string debug = "";
-            int counter = 0;
 
             IngredientController ingController = new IngredientController();
 
@@ -29,12 +27,12 @@ namespace eco_friendly_life_winform.Database_Backend.Calculator
 
                     // accessing dynamicly the dishes strIngredient1, strIngredient2 ... etc properties
                     string ingredientName = "strIngredient" + j;
-                    //string ingredient = (string)obj.GetType().GetProperty(ingredientName).GetValue(obj, null);
+                    
                     string ingredient = (string)obj.GetType().GetProperty(ingredientName)?.GetValue(obj, null);
 
                     if (!string.IsNullOrEmpty(ingredient))
                     {
-                        // looping through the ingredients in the database (55)
+                        // looping through the ingredients in the database (45)
                         for (var i = 0; i < ingController.GetCount(); i++)
                         {
                             Ingredient actIngredient = ingController.getElementByIndex(i);
@@ -43,7 +41,6 @@ namespace eco_friendly_life_winform.Database_Backend.Calculator
                             // making it case-insensitive
                             if (ingredient != null && ingredient.IndexOf(actIngredient.IngredientName, StringComparison.OrdinalIgnoreCase) >= 0)
                             {
-                                //MessageBox.Show(actIngredient.IngredientName);
                                 carbonResult += actIngredient.CarbonFootprint;
                             }
 
