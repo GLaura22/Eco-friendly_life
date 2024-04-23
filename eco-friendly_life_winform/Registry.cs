@@ -43,11 +43,10 @@ namespace eco_friendly_life_winform
             PersonController personContorller = new PersonController();
             int userId = personContorller.AddPerson(user);
 
-            /* Check if the insertion was successful or not. */
+            // check if the insertion was successful
             if (userId == 0)
             {
-                /* ERROR occurred! */
-                throw new Exception("Register failed!");
+                MessageBox.Show("Insertion failed!");
             }
 
             this.Close();

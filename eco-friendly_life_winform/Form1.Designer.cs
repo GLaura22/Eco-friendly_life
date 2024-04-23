@@ -64,7 +64,13 @@
             this.tippLabel = new System.Windows.Forms.Label();
             this.userNameLabel = new System.Windows.Forms.Label();
             this.ratingPanel = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.commentsDataGridView = new System.Windows.Forms.DataGridView();
+            this.UserColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MealColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RatingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.rateButton = new System.Windows.Forms.Button();
             this.ratingBar = new System.Windows.Forms.TrackBar();
@@ -74,10 +80,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.UserColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MealColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RatingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.optionsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.mainWindowPanel.SuspendLayout();
@@ -144,8 +147,8 @@
             // tippsAndTricksToolStripMenuItem
             // 
             this.tippsAndTricksToolStripMenuItem.Name = "tippsAndTricksToolStripMenuItem";
-            this.tippsAndTricksToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
-            this.tippsAndTricksToolStripMenuItem.Text = "Tipps and Tricks";
+            this.tippsAndTricksToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.tippsAndTricksToolStripMenuItem.Text = "Tips and Tricks";
             this.tippsAndTricksToolStripMenuItem.Click += new System.EventHandler(this.tippsAndTricksToolStripMenuItem_Click);
             // 
             // reviewsToolStripMenuItem
@@ -178,6 +181,7 @@
             // 
             // RecipePanel
             // 
+            this.RecipePanel.Controls.Add(this.optionsButton);
             this.RecipePanel.Controls.Add(this.label1);
             this.RecipePanel.Controls.Add(this.noMeatRadioButton);
             this.RecipePanel.Controls.Add(this.meatRadioButton);
@@ -273,7 +277,7 @@
             this.generalasButton.Name = "generalasButton";
             this.generalasButton.Size = new System.Drawing.Size(134, 54);
             this.generalasButton.TabIndex = 10;
-            this.generalasButton.Text = "Generating";
+            this.generalasButton.Text = "Generate";
             this.generalasButton.UseVisualStyleBackColor = false;
             this.generalasButton.Click += new System.EventHandler(this.generalasButton_Click);
             // 
@@ -417,6 +421,7 @@
             this.todaysTippTextBox.Location = new System.Drawing.Point(30, 142);
             this.todaysTippTextBox.Multiline = true;
             this.todaysTippTextBox.Name = "todaysTippTextBox";
+            this.todaysTippTextBox.ReadOnly = true;
             this.todaysTippTextBox.Size = new System.Drawing.Size(271, 112);
             this.todaysTippTextBox.TabIndex = 1;
             // 
@@ -442,6 +447,8 @@
             // 
             // ratingPanel
             // 
+            this.ratingPanel.Controls.Add(this.label8);
+            this.ratingPanel.Controls.Add(this.label7);
             this.ratingPanel.Controls.Add(this.commentsDataGridView);
             this.ratingPanel.Controls.Add(this.pictureBox2);
             this.ratingPanel.Controls.Add(this.rateButton);
@@ -456,6 +463,26 @@
             this.ratingPanel.Size = new System.Drawing.Size(757, 569);
             this.ratingPanel.TabIndex = 8;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(472, 130);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(17, 20);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "5";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(203, 129);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(17, 20);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "1";
+            // 
             // commentsDataGridView
             // 
             this.commentsDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
@@ -469,8 +496,33 @@
             this.commentsDataGridView.Location = new System.Drawing.Point(20, 328);
             this.commentsDataGridView.Name = "commentsDataGridView";
             this.commentsDataGridView.RowTemplate.Height = 25;
-            this.commentsDataGridView.Size = new System.Drawing.Size(717, 226);
+            this.commentsDataGridView.Size = new System.Drawing.Size(697, 226);
             this.commentsDataGridView.TabIndex = 9;
+            // 
+            // UserColumn
+            // 
+            this.UserColumn.HeaderText = "User";
+            this.UserColumn.Name = "UserColumn";
+            this.UserColumn.ReadOnly = true;
+            // 
+            // MealColumn
+            // 
+            this.MealColumn.HeaderText = "Meal";
+            this.MealColumn.Name = "MealColumn";
+            this.MealColumn.ReadOnly = true;
+            // 
+            // RatingColumn
+            // 
+            this.RatingColumn.HeaderText = "Rating";
+            this.RatingColumn.Name = "RatingColumn";
+            this.RatingColumn.ReadOnly = true;
+            // 
+            // ImageColumn
+            // 
+            this.ImageColumn.HeaderText = "Image of it";
+            this.ImageColumn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.ImageColumn.Name = "ImageColumn";
+            this.ImageColumn.ReadOnly = true;
             // 
             // pictureBox2
             // 
@@ -556,42 +608,30 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // UserColumn
+            // optionsButton
             // 
-            this.UserColumn.HeaderText = "User";
-            this.UserColumn.Name = "UserColumn";
-            this.UserColumn.ReadOnly = true;
-            // 
-            // MealColumn
-            // 
-            this.MealColumn.HeaderText = "Meal";
-            this.MealColumn.Name = "MealColumn";
-            this.MealColumn.ReadOnly = true;
-            // 
-            // RatingColumn
-            // 
-            this.RatingColumn.HeaderText = "Rating";
-            this.RatingColumn.Name = "RatingColumn";
-            this.RatingColumn.ReadOnly = true;
-            // 
-            // ImageColumn
-            // 
-            this.ImageColumn.HeaderText = "Image of it";
-            this.ImageColumn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.ImageColumn.Name = "ImageColumn";
-            this.ImageColumn.ReadOnly = true;
+            this.optionsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.optionsButton.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.optionsButton.ForeColor = System.Drawing.Color.White;
+            this.optionsButton.Location = new System.Drawing.Point(387, 446);
+            this.optionsButton.Name = "optionsButton";
+            this.optionsButton.Size = new System.Drawing.Size(123, 54);
+            this.optionsButton.TabIndex = 25;
+            this.optionsButton.Text = "Other options";
+            this.optionsButton.UseVisualStyleBackColor = false;
+            this.optionsButton.Click += new System.EventHandler(this.optionsButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 640);
-            this.Controls.Add(this.ratingPanel);
             this.Controls.Add(this.userNameLabel);
-            this.Controls.Add(this.mainWindowPanel);
-            this.Controls.Add(this.RecipePanel);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.RecipePanel);
             this.Controls.Add(this.TippPanel);
+            this.Controls.Add(this.ratingPanel);
+            this.Controls.Add(this.mainWindowPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -670,5 +710,8 @@
         private DataGridViewTextBoxColumn MealColumn;
         private DataGridViewTextBoxColumn RatingColumn;
         private DataGridViewImageColumn ImageColumn;
+        private Label label8;
+        private Label label7;
+        private Button optionsButton;
     }
 }

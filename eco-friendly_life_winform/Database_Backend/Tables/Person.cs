@@ -17,7 +17,6 @@ namespace eco_friendly_life_winform.Database_Backend.Tables
         public string UserName { get; set; }
 
         public string Password { get; set; } 
-        // plusz otlet pontgyujteshez
-        //public int Points { get; set; }
+
     }
 }

@@ -67,12 +67,16 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    throw new Exception("Don't have any data");
+                    //throw new Exception("Don't have any data");
+                    MessageBox.Show("Sorry no recipe with a name like that.");
+                    return new RecipeAPI.Rootobject();
                 }
             }
             else
             {
-                throw new Exception("Can't reach API");
+                //throw new Exception("Can't reach API");
+                MessageBox.Show("Can't reach API.");
+                return new RecipeAPI.Rootobject();
             }
         }
 
@@ -94,12 +98,16 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    throw new Exception("Don't have any data");
+                    //throw new Exception("Don't have any data");
+                    MessageBox.Show("Sorry no recipe with an id like that.");
+                    return new RecipeAPI.Rootobject();
                 }
             }
             else
             {
-                throw new Exception("Can't reach API");
+                //throw new Exception("Can't reach API");
+                MessageBox.Show("Cant't reach API");
+                return new RecipeAPI.Rootobject();
             }
 
         }
@@ -165,12 +173,16 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    throw new Exception("Don't have any data");
+                    //throw new Exception("Don't have any data");
+                    MessageBox.Show("Sorry coudn't load vegetarian recipes");
+                    return new List<RecipeAPI.Rootobject>();
                 }
             }
             else
             {
-                throw new Exception("Can't reach API");
+                //throw new Exception("Can't reach API");
+                MessageBox.Show("Can't reach API.");
+                return new List<RecipeAPI.Rootobject>();
             }
         }
 
@@ -277,12 +289,16 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    throw new Exception("Don't have any data");
+                    //throw new Exception("Don't have any data");
+                    MessageBox.Show("Sorry coudn't load meaty recipes.");
+                    return new List<RecipeAPI.Rootobject>();
                 }
             }
             else
             {
-                throw new Exception("Can't reach API");
+                //throw new Exception("Can't reach API");
+                MessageBox.Show("Can't reach API.");
+                return new List<RecipeAPI.Rootobject>();
             }
 
         }
@@ -326,12 +342,16 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    throw new Exception("Don't have any data");
+                    //throw new Exception("Don't have any data");
+                    MessageBox.Show("Sorry coudn't load" + ingredients[0].ToString() + "recipes");
+                    return new List<RecipeAPI.Rootobject>();
                 }
             }
             else
             {
-                throw new Exception("Can't reach API");
+                //throw new Exception("Can't reach API");
+                MessageBox.Show("Can't reach API");
+                return new List<RecipeAPI.Rootobject>();
             }
 
             //MessageBox.Show(elso_szures);
@@ -392,8 +412,15 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
     }
                     else
                     {
-                        throw new Exception("Don't have any data");
+                        //throw new Exception("Don't have any data");
+                        MessageBox.Show("Sorry coudn't load" + ingredients[1].ToString() + "recipes");
+                        return new List<RecipeAPI.Rootobject>();
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Can't reach API.");
+                    return new List<RecipeAPI.Rootobject>();
                 }
             }
             //MessageBox.Show(masodik_szures);
@@ -436,8 +463,14 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     }
                     else
                     {
-                        throw new Exception("Don't have any data");
+                        MessageBox.Show("Sorry coudn't load" + ingredients[2].ToString() + "recipes");
+                        return new List<RecipeAPI.Rootobject>();
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Can't reach API.");
+                    return new List<RecipeAPI.Rootobject>();
                 }
             }
             //MessageBox.Show(harmadik_szures);

@@ -22,6 +22,8 @@ namespace eco_friendly_life_winform
         private Person user = new Person { UserID = 0, UserName = "", Password = "" };
         private int actUserId = 0;
 
+        List<RecipeAPI.Rootobject> resultList = new List<RecipeAPI.Rootobject>();
+
         public Form1(int userId)
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace eco_friendly_life_winform
             TippPanel.Visible = false;
             resultPanel.Visible = false;
             ratingPanel.Visible = false;
+            optionsButton.Visible = false;
             user.UserID = userId;
 
             //MessageBox.Show(userId.ToString());
@@ -49,12 +52,15 @@ namespace eco_friendly_life_winform
             RecipePanel.Visible = true;
             resultPanel.Visible = false;
             ratingPanel.Visible = false;
+            optionsButton.Visible = false;
             ingredientComboBox1.Items.Clear();
 
             IngredientController ingredientController = new();
 
             List<Ingredient> ingredients = ingredientController.GetItems();
-
+            ingredientComboBox1.Items.Clear();
+            ingredientComboBox2.Items.Clear();
+            ingredientComboBox3.Items.Clear();
             
             for (int i = 0; i < 45; i++)
             {
@@ -80,6 +86,7 @@ namespace eco_friendly_life_winform
             RecipePanel.Visible = false;
             TippPanel.Visible = true;
             ratingPanel.Visible = false;
+            optionsButton.Visible = false;
 
             TippController tippController = new();
 
@@ -94,6 +101,8 @@ namespace eco_friendly_life_winform
 
         private void generalasButton_Click(object sender, EventArgs e)
         {
+            resultList.Clear();
+            MessageBox.Show("Generating...");
             string wantedIngredient1 = string.Empty;
             string wantedIngredient2 = string.Empty;
             string wantedIngredient3 = string.Empty;
@@ -101,8 +110,6 @@ namespace eco_friendly_life_winform
             wantedIngredient1 = ingredientComboBox1.Text;
             wantedIngredient2 = ingredientComboBox2.Text;
             wantedIngredient3 = ingredientComboBox3.Text;
-
-            string tipus = string.Empty;
 
             // there is no preffered ingredient
 
@@ -129,6 +136,8 @@ namespace eco_friendly_life_winform
 
                 prefferedIngredients(wantedIngredients);                
             }
+
+            optionsButton.Visible = true;
 
         }
 
@@ -165,6 +174,14 @@ namespace eco_friendly_life_winform
 
             // loading in actual meals image
             loadInImage(result.meals[0].strMealThumb, resultPictureBox);
+
+            // saving the top 3 results
+            if (mealswithFootprint.Count() >= 4)
+            {
+                resultList.Add(mealswithFootprint.ElementAt(1).Key);
+                resultList.Add(mealswithFootprint.ElementAt(2).Key);
+                resultList.Add(mealswithFootprint.ElementAt(3).Key);
+            }
 
 
         }
@@ -212,6 +229,14 @@ namespace eco_friendly_life_winform
             // loading in actual meals image
             loadInImage(result.meals[0].strMealThumb, resultPictureBox);
 
+            // saving the top 3 results
+            if (mealsWithCarbonfootprint.Count() >= 3)
+            {
+                resultList.Add(mealsWithCarbonfootprint.ElementAt(1).Key);
+                resultList.Add(mealsWithCarbonfootprint.ElementAt(2).Key);
+                resultList.Add(mealsWithCarbonfootprint.ElementAt(3).Key);
+            }
+
         }
 
         private void noMeatAllIngredients()
@@ -255,6 +280,15 @@ namespace eco_friendly_life_winform
 
             // saving the result to public variable 
             result = mealsWithCarbonfootprint.First().Key;
+
+            // saving the top 3 results
+            if (mealsWithCarbonfootprint.Count() >= 3)
+            {
+                resultList.Add(mealsWithCarbonfootprint.ElementAt(1).Key);
+                resultList.Add(mealsWithCarbonfootprint.ElementAt(2).Key);
+                resultList.Add(mealsWithCarbonfootprint.ElementAt(3).Key);
+            }
+            
 
             string vegetarianResultName = "";
             double carbonFootprintResult = -1.0;
@@ -310,21 +344,21 @@ namespace eco_friendly_life_winform
             MessageBox.Show(result.meals[0].strInstructions);
         }
 
-        private void loadInImage(string imageUrl, PictureBox pictureBox)
+        public void loadInImage(string imageUrl, PictureBox pictureBox)
         {
-            // Download the image from the URL
+            // download the image from the URL
             using (WebClient webClient = new WebClient())
             {
                 try
                 {
                     byte[] imageData = webClient.DownloadData(imageUrl);
 
-                    // Convert the downloaded byte array to an Image object
+                    // convert the downloaded byte array to an Image object
                     using (var ms = new System.IO.MemoryStream(imageData))
                     {
                         Image image = Image.FromStream(ms);
 
-                        // Assign the image to the PictureBox control
+                        // assign the image to the PictureBox control
                         pictureBox.Image = image;
                     }
                 }
@@ -422,6 +456,7 @@ namespace eco_friendly_life_winform
 
         private void rateButton_Click(object sender, EventArgs e)
         {
+
             CommentController commentController = new CommentController();
 
             // getting the data for the comment
@@ -431,17 +466,32 @@ namespace eco_friendly_life_winform
 
             // getting the mealId by the name
             APICalls recipeController = new APICalls();
-            RecipeAPI.Rootobject actDish = recipeController.getRecipeByNameCall(mealName);
-            //MessageBox.Show(actDish.meals[0].strMeal);
-            string actDishId = actDish.meals[0].idMeal;
-
-            Comment newComment = new Comment { MealImage = imageByteArray, Rating = rating, UserID = actUserId ,MealID = actDishId };
-
-            int debug = commentController.AddComment(newComment);
-
-            if(debug == 0) 
+            
+            
+            try
             {
-                MessageBox.Show("Sorry, we couldn't save your rating!");
+                RecipeAPI.Rootobject actDish = recipeController.getRecipeByNameCall(mealName);
+                if (actDish != null && actDish.meals != null && actDish.meals.Length > 0)
+                {
+                    string actDishId = actDish.meals[0].idMeal;
+
+                    Comment newComment = new Comment { MealImage = imageByteArray, Rating = rating, UserID = actUserId, MealID = actDishId };
+
+                    int debug = commentController.AddComment(newComment);
+
+                    if (debug == 0)
+                    {
+                        MessageBox.Show("Sorry, we couldn't save your rating!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No recipe found with a name like that");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
             }
 
         }
@@ -452,6 +502,7 @@ namespace eco_friendly_life_winform
             RecipePanel.Visible = false;
             TippPanel.Visible = false;
             ratingPanel.Visible = true;
+            optionsButton.Visible = false;
 
             commentsDataGridView.Rows.Clear();
             commentsDataGridView.Columns[0].Width = 120; // Username column
@@ -476,9 +527,31 @@ namespace eco_friendly_life_winform
 
                 int rowIndex = commentsDataGridView.Rows.Add(username, actmeal.meals[0].strMeal, rating, actImage);
 
-                // Set row height
+                // set row height
                 commentsDataGridView.Rows[rowIndex].Height = 100;
 
+            }
+        }
+
+        private void optionsButton_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show(resultList.Count().ToString());
+            List<string> ids = new List<string>();
+            if (resultList.Count() > 0)
+            {
+                
+                for (int i = 0; i < resultList.Count(); i++)
+                {
+                    //MessageBox.Show(resultList.ElementAt(i).meals[0].strMeal);
+                    ids.Add(resultList.ElementAt(i).meals[0].idMeal);
+                }
+
+                var myForm = new Options(ids);
+                myForm.ShowDialog();
+
+            }
+            else {
+                MessageBox.Show("Sorry can't recommend any meals similar to this one.");
             }
         }
     }

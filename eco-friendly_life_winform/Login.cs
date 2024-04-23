@@ -45,9 +45,9 @@ namespace eco_friendly_life_winform
 
             PersonController personController = new PersonController();
             user = personController.LoginHashVersion(userName, password);
-            //user = personController.Login(userName, password);
-
-            if (user.UserID != 0) 
+            
+            // the password is correct and exists a user with this username
+            if (user.UserName != "" || user.UserID != 0) 
             {
                 var myForm = new Form1(user.UserID);
                 myForm.ShowDialog();
@@ -55,7 +55,7 @@ namespace eco_friendly_life_winform
             }
             else
             {
-                MessageBox.Show("Username/password is incorrect or you haven't registered yet!");
+                MessageBox.Show("Username/password is incorrect or you don't have an account yet!");
             }
 
         }
