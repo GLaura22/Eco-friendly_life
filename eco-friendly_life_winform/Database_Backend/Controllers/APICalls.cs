@@ -292,12 +292,6 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             // recipes that contain all the ingredients passed on by the ingredients array
             // List<RecipeAPI.Meal> resultList = new List<RecipeAPI.Meal>();
 
-            string miabajabamar = "";
-            foreach(var i in ingredients)
-            {
-                miabajabamar += i;
-            }
-            MessageBox.Show(miabajabamar);
             // Dictionary to count how many times we would add the meal to the list
             // (if the same dish contains two of the wanted ingredients it would be added twice)
             Dictionary<RecipeAPI.Meal, int> resultList = new Dictionary<RecipeAPI.Meal, int>(); 
@@ -340,7 +334,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 throw new Exception("Can't reach API");
             }
 
-            MessageBox.Show(elso_szures);
+            //MessageBox.Show(elso_szures);
 
             int counter = 0;
             foreach (var ing in ingredients)
@@ -402,7 +396,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     }
                 }
             }
-            MessageBox.Show(masodik_szures);
+            //MessageBox.Show(masodik_szures);
             
 
             string harmadik_szures = ingredients[2] + ": ";
@@ -446,7 +440,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     }
                 }
             }
-            MessageBox.Show(harmadik_szures);
+            //MessageBox.Show(harmadik_szures);
 
             // putting the filtered meals in a dictionary where the key is the meals id
             // and the value is how many wanted ingredient is int the dish
@@ -467,7 +461,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 
             }
-            MessageBox.Show(szamlalo.ToString() + " " + pls);
+            //MessageBox.Show(szamlalo.ToString() + " " + pls);
 
             /*
             string debug2 = "";
@@ -527,7 +521,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
 
             }
 
-            MessageBox.Show("sorted: " + debug);
+            //MessageBox.Show("sorted: " + debug);
 
            
             //RecipeAPI.Rootobject meal = getRecipeById(sortedResultList.First().Key);

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using eco_friendly_life_winform.Database_Backend.Tables;
 using eco_friendly_life_winform.Database_Backend.Controllers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace eco_friendly_life_winform
 {
@@ -21,12 +22,17 @@ namespace eco_friendly_life_winform
         {
             InitializeComponent();
             user = new Person { UserID = 0, UserName = "", Password = "" };
+
+            // Set to no text.
+            passwordTextBox.Text = "";
+            // The password character is an asterisk.
+            passwordTextBox.PasswordChar = '*';
+            // The control will allow no more than 14 characters.
+            passwordTextBox.MaxLength = 14;
         }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            // tihi nyilvan adatbbol kell kiszedni a belepesi adatokat
-            // TODO
 
             if(usernameTextBox.Text == "" || passwordTextBox.Text == "")
             {
@@ -38,7 +44,8 @@ namespace eco_friendly_life_winform
             string password = passwordTextBox.Text;
 
             PersonController personController = new PersonController();
-            user = personController.Login(userName, password);
+            user = personController.LoginHashVersion(userName, password);
+            //user = personController.Login(userName, password);
 
             if (user.UserID != 0) 
             {
@@ -48,7 +55,7 @@ namespace eco_friendly_life_winform
             }
             else
             {
-                MessageBox.Show("Please register first!");
+                MessageBox.Show("Username/password is incorrect or you haven't registered yet!");
             }
 
         }

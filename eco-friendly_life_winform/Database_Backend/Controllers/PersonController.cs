@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eco_friendly_life_winform.Database_Backend.Connection;
 using eco_friendly_life_winform.Database_Backend.Tables;
+using System.Security.Cryptography;
 
 namespace eco_friendly_life_winform.Database_Backend.Controllers
 {
@@ -36,6 +37,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
 
         }
 
+        
         public Person Login(string username, string password)
         {
             try
@@ -59,6 +61,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             }
         }
 
+
         public string GetUsername(int userId)
         {
             string username = "";
@@ -76,6 +79,43 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             catch
             {
                 return username;
+            }
+        }
+
+        public string Hash(string value)
+        {
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(value);
+
+            byte[] hashBytes;
+
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                hashBytes = sha256.ComputeHash(passwordBytes);
+            }
+
+            return Convert.ToBase64String(hashBytes);
+        }
+
+        public Person LoginHashVersion(string username, string password)
+        {
+            try
+            {
+                AppDbContext context = new();
+
+                string passwordHash = Hash(password);
+
+                Person felhasznalo = context.Persons
+                    .Single(row => row.UserName == username && row.Password == passwordHash);
+
+                return felhasznalo;
+            }
+            catch (Exception)
+            {
+                return new Person
+                {
+                    UserName = "",
+                    Password = ""
+                };
             }
         }
 

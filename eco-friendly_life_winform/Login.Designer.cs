@@ -72,6 +72,7 @@
             // usernameTextBox
             // 
             this.usernameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.usernameTextBox.ForeColor = System.Drawing.SystemColors.Window;
             this.usernameTextBox.Location = new System.Drawing.Point(56, 88);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(289, 23);
@@ -80,6 +81,7 @@
             // passwordTextBox
             // 
             this.passwordTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(143)))), ((int)(((byte)(224)))));
+            this.passwordTextBox.ForeColor = System.Drawing.SystemColors.Window;
             this.passwordTextBox.Location = new System.Drawing.Point(56, 186);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(289, 23);
@@ -109,7 +111,7 @@
             this.RegistryButton.Name = "RegistryButton";
             this.RegistryButton.Size = new System.Drawing.Size(110, 52);
             this.RegistryButton.TabIndex = 6;
-            this.RegistryButton.Text = "Registry";
+            this.RegistryButton.Text = "Sign up";
             this.RegistryButton.UseVisualStyleBackColor = false;
             this.RegistryButton.Click += new System.EventHandler(this.RegistryButton_Click);
             // 

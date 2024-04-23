@@ -155,17 +155,6 @@ namespace eco_friendly_life_winform
             // sorting the list in decreasing order by the value of the carbon footprints
             mealswithFootprint = mealswithFootprint.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
-            // ---------------------------- debug ----------------------------------------------------------
-            string szenvedes = "tobb etel is van amiben tobb hozzavalo is szerepel: ";
-
-            foreach(var kvp in mealswithFootprint) 
-            {
-                szenvedes += "(" + kvp.Key.meals[0].strMeal + " - " + kvp.Value.ToString() + "), ";
-            }
-
-            MessageBox.Show(szenvedes);
-            // ---------------------------- debug vege ----------------------------------------------------------
-
             result = mealswithFootprint.First().Key;
             carbonFootprint = mealswithFootprint.First().Value;
 
@@ -173,7 +162,6 @@ namespace eco_friendly_life_winform
             resultRecipeLabel.Text = result.meals[0].strMeal;
             string formattedValue = carbonFootprint.ToString("0.00");   // only 2 digits should be displayed
             carbonFootprintLabel.Text = formattedValue + " CO2eq/kg";
-            //MessageBox.Show("lefutott");
 
             // loading in actual meals image
             loadInImage(result.meals[0].strMealThumb, resultPictureBox);
@@ -444,7 +432,7 @@ namespace eco_friendly_life_winform
             // getting the mealId by the name
             APICalls recipeController = new APICalls();
             RecipeAPI.Rootobject actDish = recipeController.getRecipeByNameCall(mealName);
-            MessageBox.Show(actDish.meals[0].strMeal);
+            //MessageBox.Show(actDish.meals[0].strMeal);
             string actDishId = actDish.meals[0].idMeal;
 
             Comment newComment = new Comment { MealImage = imageByteArray, Rating = rating, UserID = actUserId ,MealID = actDishId };

@@ -17,16 +17,28 @@ namespace eco_friendly_life_winform
         public Registry()
         {
             InitializeComponent();
+
+            // Set to no text.
+            newPasswordTextBox.Text = "";
+            // The password character is an asterisk.
+            newPasswordTextBox.PasswordChar = '*';
+            // The control will allow no more than 14 characters.
+            newPasswordTextBox.MaxLength = 14;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // TODO adding the new user to the database
 
             string newUsername = newUsernameTextBox.Text;
             string newPassword = newPasswordTextBox.Text;
 
-            Person user = new Person {UserName = newUsername, Password = newPassword };
+            // hashing
+            string hashPassword = "";
+            PersonController personController = new PersonController();
+            hashPassword = personController.Hash(newPassword);
+
+
+            Person user = new Person {UserName = newUsername, Password = hashPassword };
 
             PersonController personContorller = new PersonController();
             int userId = personContorller.AddPerson(user);
@@ -43,5 +55,7 @@ namespace eco_friendly_life_winform
             var loginForm = new Login();
             loginForm.ShowDialog();
         }
+
+        
     }
 }

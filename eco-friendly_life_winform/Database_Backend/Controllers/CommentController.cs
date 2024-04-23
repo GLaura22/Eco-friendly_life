@@ -18,15 +18,10 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             byte[] imageByteArray;
             using (MemoryStream ms = new MemoryStream())
             {
-                // Assuming mealImage is an instance of System.Drawing.Image
-                //mealImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 mealImage.Save(ms, mealImage.RawFormat);
                 imageByteArray = ms.ToArray();
-                //MessageBox.Show(imageByteArray.ToString());
             }
 
-            // Now assign the byte array to the MealImage property of the comment
-            //comment.MealImage = imageByteArray;
             return imageByteArray;
         }
 

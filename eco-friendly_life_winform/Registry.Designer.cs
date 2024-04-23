@@ -39,12 +39,12 @@
             // regiLabel
             // 
             this.regiLabel.AutoSize = true;
-            this.regiLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.regiLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.regiLabel.Location = new System.Drawing.Point(181, 117);
             this.regiLabel.Name = "regiLabel";
-            this.regiLabel.Size = new System.Drawing.Size(374, 20);
+            this.regiLabel.Size = new System.Drawing.Size(206, 30);
             this.regiLabel.TabIndex = 0;
-            this.regiLabel.Text = "Please sign up so you can use the Eco-friendly Life app!";
+            this.regiLabel.Text = "Create your account!";
             // 
             // label1
             // 
@@ -93,7 +93,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 49);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Registry";
+            this.button1.Text = "Sign up";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
