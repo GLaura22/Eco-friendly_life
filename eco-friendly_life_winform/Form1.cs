@@ -473,6 +473,7 @@ namespace eco_friendly_life_winform
                 RecipeAPI.Rootobject actDish = recipeController.getRecipeByNameCall(mealName);
                 if (actDish != null && actDish.meals != null && actDish.meals.Length > 0)
                 {
+                    MessageBox.Show("Succesfully added your rating! Please refresh!");
                     string actDishId = actDish.meals[0].idMeal;
 
                     Comment newComment = new Comment { MealImage = imageByteArray, Rating = rating, UserID = actUserId, MealID = actDishId };
