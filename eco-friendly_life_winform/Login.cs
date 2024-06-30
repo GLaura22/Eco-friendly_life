@@ -23,11 +23,11 @@ namespace eco_friendly_life_winform
             InitializeComponent();
             user = new Person { UserID = 0, UserName = "", Password = "" };
 
-            // Set to no text.
+            // set to no text.
             passwordTextBox.Text = "";
-            // The password character is an asterisk.
+            // the password character is an asterisk.
             passwordTextBox.PasswordChar = '*';
-            // The control will allow no more than 14 characters.
+            // the control will allow no more than 14 characters.
             passwordTextBox.MaxLength = 14;
         }
 

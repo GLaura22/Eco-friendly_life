@@ -40,23 +40,23 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
         {
             try
             {
-                /* SQL Connection. */
+                // SQL connection
                 var context = new AppDbContext();
 
-                /* Insert data into Database. */
+                // insert data into database
                 context.Comments.Add(comment);
                 context.SaveChanges();
 
-                /* Get last inserted ID. */
+                // get last inserted ID
                 var id = context.Comments.OrderBy(row => row.UserID).Last();
 
-                /* Return the previously saved ID. */
+                // return the previously saved ID
                 return id.CommentID;
             }
             catch (Exception)
             {
-                /* On error. */
-                return 0; // Return 0 to easily check if there is a problem or not.
+                // on error
+                return 0; // return 0 to easily check if there is a problem or not.
             }
         }
 

@@ -67,14 +67,12 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    //throw new Exception("Don't have any data");
                     MessageBox.Show("Sorry no recipe with a name like that.");
                     return new RecipeAPI.Rootobject();
                 }
             }
             else
             {
-                //throw new Exception("Can't reach API");
                 MessageBox.Show("Can't reach API.");
                 return new RecipeAPI.Rootobject();
             }
@@ -98,14 +96,12 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    //throw new Exception("Don't have any data");
                     MessageBox.Show("Sorry no recipe with an id like that.");
                     return new RecipeAPI.Rootobject();
                 }
             }
             else
             {
-                //throw new Exception("Can't reach API");
                 MessageBox.Show("Cant't reach API");
                 return new RecipeAPI.Rootobject();
             }
@@ -173,14 +169,12 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    //throw new Exception("Don't have any data");
                     MessageBox.Show("Sorry coudn't load vegetarian recipes");
                     return new List<RecipeAPI.Rootobject>();
                 }
             }
             else
             {
-                //throw new Exception("Can't reach API");
                 MessageBox.Show("Can't reach API.");
                 return new List<RecipeAPI.Rootobject>();
             }
@@ -289,14 +283,12 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    //throw new Exception("Don't have any data");
                     MessageBox.Show("Sorry coudn't load meaty recipes.");
                     return new List<RecipeAPI.Rootobject>();
                 }
             }
             else
             {
-                //throw new Exception("Can't reach API");
                 MessageBox.Show("Can't reach API.");
                 return new List<RecipeAPI.Rootobject>();
             }
@@ -342,19 +334,15 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 else
                 {
-                    //throw new Exception("Don't have any data");
                     MessageBox.Show("Sorry coudn't load" + ingredients[0].ToString() + "recipes");
                     return new List<RecipeAPI.Rootobject>();
                 }
             }
             else
-            {
-                //throw new Exception("Can't reach API");
+            {                
                 MessageBox.Show("Can't reach API");
                 return new List<RecipeAPI.Rootobject>();
-            }
-
-            //MessageBox.Show(elso_szures);
+            }            
 
             int counter = 0;
             foreach (var ing in ingredients)
@@ -378,41 +366,19 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     string ing2rawResponse = response2.Content;
 
                     ing2Result = JsonConvert.DeserializeObject<RecipeAPI.Rootobject>(ing2rawResponse);
-
-                    // ok problem is the key should be the strID not the whole object 
-                    //MessageBox.Show(ing2Result.meals[0].ToString());
-                    //MessageBox.Show(resultList.First().Key.ToString());
                     
 
                     if (ing2Result != null)
                     {
                         foreach (var obj in ing2Result.meals)
                         {
-                            // TODO ez meg nem mukodik a masodik harmadik hozzavalo alapjan nem szur
-                            //                          // duck, fish, turkey, shrimp, beans, olives, cherries, yogurt, flour, mushroom, pasta, paste, chocolate
 
                             resultList.Add(obj, 1);
                             masodik_szures += obj.strMeal + ", ";
-                            /*
-                            // if the dish is already in the dictionary we just add one to the number
-                            if (resultList.ContainsKey(obj))
-                            {
-                                // If the dish is already in the dictionary, increment the count
-                                resultList[obj]++;
-                                masodik_szures += "masododjara lenne hozzaadva: " + obj.strMeal + ", ";
-                            }
-                            else
-                            {
-                                // If the dish is not in the dictionary, add it with a count of 1
-                                resultList.Add(obj, 1);
-                                masodik_szures += obj.strMeal + ", ";
-                            }
-                            */
         }
     }
                     else
                     {
-                        //throw new Exception("Don't have any data");
                         MessageBox.Show("Sorry coudn't load" + ingredients[1].ToString() + "recipes");
                         return new List<RecipeAPI.Rootobject>();
                     }
@@ -423,7 +389,6 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     return new List<RecipeAPI.Rootobject>();
                 }
             }
-            //MessageBox.Show(masodik_szures);
             
 
             string harmadik_szures = ingredients[2] + ": ";
@@ -443,20 +408,6 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     {
                         foreach (var obj in ing3Result.meals)
                         {
-                            /*
-                            if (resultList.ContainsKey(obj))
-                            {
-                                // if the dish is already in the dictionary, increment the count
-                                resultList[obj]++;
-                                harmadik_szures += "tobbedjera lenne hozzaadva: " + obj.strMeal + ", ";
-                            }
-                            else
-                            {
-                                // if the dish is not in the dictionary, add it with a count of 1
-                                resultList.Add(obj, 1);
-                                harmadik_szures += obj.strMeal + ", ";
-                            }
-                            */
                             resultList.Add(obj, 1);
                             harmadik_szures += obj.strMeal + ", ";
                         }
@@ -473,7 +424,6 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                     return new List<RecipeAPI.Rootobject>();
                 }
             }
-            //MessageBox.Show(harmadik_szures);
 
             // putting the filtered meals in a dictionary where the key is the meals id
             // and the value is how many wanted ingredient is int the dish
@@ -494,28 +444,6 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
                 
             }
-            //MessageBox.Show(szamlalo.ToString() + " " + pls);
-
-            /*
-            string debug2 = "";
-            foreach (var akarmi in resultList)
-            {
-                debug2 += akarmi.Key.strMeal + "-" + akarmi.Value.ToString() + ", ";
-            }
-
-            string debug3 = "";
-            foreach (var akarmi in resultdict)
-            {
-                debug3 += akarmi.Key + "-" + akarmi.Value.ToString() + ", ";
-            }
-            */
-            //MessageBox.Show("resultList: " + debug2);
-            //MessageBox.Show("resultdict: " + debug3);
-
-            //MessageBox.Show(harmadik_szures);
-
-            // sort the dictionary by value in decreasing order
-            // so the dishes with the most matches get on the top of the list
 
             var sortedResultList = resultdict.OrderByDescending(kv => kv.Value).ToDictionary(kv => kv.Key, kv => kv.Value);
 
@@ -527,7 +455,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
 
             int maxValue = sortedResultList.Values.First();
 
-            // Count how many elements have the maximum value
+            // count how many elements have the maximum value
             int maxCount = sortedResultList.Values.Count(value => value == maxValue);
 
             // if there's only one recipe with multiple wanted ingredient we offer that one
@@ -541,7 +469,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
             // (f.e.: 5 meals contain 3 of the preffered ingredients) we have to sort them according to their carbon footprint
             else
             {
-                // Get the first x elements that have the same value (max)
+                // get the first x elements that have the same value (max)
                 var maxElements = sortedResultList.Take(maxCount);
 
                 // converting the short recipes to full ones
@@ -553,13 +481,7 @@ namespace eco_friendly_life_winform.Database_Backend.Controllers
                 }
 
             }
-
-            //MessageBox.Show("sorted: " + debug);
-
-           
-            //RecipeAPI.Rootobject meal = getRecipeById(sortedResultList.First().Key);
             
-
 
             return wholeDishData;
         }

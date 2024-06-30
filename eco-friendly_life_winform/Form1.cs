@@ -34,6 +34,8 @@ namespace eco_friendly_life_winform
             ratingPanel.Visible = false;
             optionsButton.Visible = false;
             user.UserID = userId;
+            pictureBox2.Tag= "default";
+
 
             //MessageBox.Show(userId.ToString());
             PersonController personController = new PersonController();
@@ -121,7 +123,7 @@ namespace eco_friendly_life_winform
                 {
                     noMeatAllIngredients();
                 }
-                //meaty dishes
+                // meaty dishes
                 else if (meatRadioButton.Checked)
                 {
                     meatAllIngredients();
@@ -207,7 +209,6 @@ namespace eco_friendly_life_winform
             // sorting the list in decreasing order by the value of the carbon footprints
             mealsWithCarbonfootprint = mealsWithCarbonfootprint.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
-            // --------------------------------------------------------
 
             // saving the result to public variable 
             result = mealsWithCarbonfootprint.First().Key;
@@ -450,49 +451,56 @@ namespace eco_friendly_life_winform
 
                 // Assign the image file to PictureBox
                 pictureBox2.ImageLocation = selectedImagePath;
+                pictureBox2.Tag = "valid";
             }
 
         }
 
         private void rateButton_Click(object sender, EventArgs e)
         {
-
-            CommentController commentController = new CommentController();
-
-            // getting the data for the comment
-            string mealName = ratedMealNameTextBox.Text;
-            int rating = ratingBar.Value;
-            byte[] imageByteArray = commentController.ImageConvertToByteArray(pictureBox2.Image);
-
-            // getting the mealId by the name
-            APICalls recipeController = new APICalls();
-            
-            
-            try
+            if (pictureBox2.Tag == "valid")
             {
-                RecipeAPI.Rootobject actDish = recipeController.getRecipeByNameCall(mealName);
-                if (actDish != null && actDish.meals != null && actDish.meals.Length > 0)
+                CommentController commentController = new CommentController();
+
+                // getting the data for the comment
+                string mealName = ratedMealNameTextBox.Text;
+                int rating = ratingBar.Value;
+                byte[] imageByteArray = commentController.ImageConvertToByteArray(pictureBox2.Image);
+
+                // getting the mealId by the name
+                APICalls recipeController = new APICalls();
+
+
+                try
                 {
-                    MessageBox.Show("Succesfully added your rating! Please refresh!");
-                    string actDishId = actDish.meals[0].idMeal;
-
-                    Comment newComment = new Comment { MealImage = imageByteArray, Rating = rating, UserID = actUserId, MealID = actDishId };
-
-                    int debug = commentController.AddComment(newComment);
-
-                    if (debug == 0)
+                    RecipeAPI.Rootobject actDish = recipeController.getRecipeByNameCall(mealName);
+                    if (actDish != null && actDish.meals != null && actDish.meals.Length > 0)
                     {
-                        MessageBox.Show("Sorry, we couldn't save your rating!");
+                        MessageBox.Show("Succesfully added your rating! Please refresh!");
+                        string actDishId = actDish.meals[0].idMeal;
+
+                        Comment newComment = new Comment { MealImage = imageByteArray, Rating = rating, UserID = actUserId, MealID = actDishId };
+
+                        int debug = commentController.AddComment(newComment);
+
+                        if (debug == 0)
+                        {
+                            MessageBox.Show("Sorry, we couldn't save your rating!");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No recipe found with a name like that");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No recipe found with a name like that");
+                    MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
-            catch (Exception ex)
+            else 
             {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                MessageBox.Show("You have to upload a picture of the dish you prepared to rate it!");
             }
 
         }
@@ -504,6 +512,8 @@ namespace eco_friendly_life_winform
             TippPanel.Visible = false;
             ratingPanel.Visible = true;
             optionsButton.Visible = false;
+            ratedMealNameTextBox.Text = "";
+            ratingBar.Value = 1;
 
             commentsDataGridView.Rows.Clear();
             commentsDataGridView.Columns[0].Width = 120; // Username column
